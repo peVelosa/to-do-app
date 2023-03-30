@@ -8,13 +8,14 @@
     "start": "next start",
     "lint": "next lint",
     "server:prisma": "npx prisma studio",
-    "server:main": "pscale connect to-do-app --port 3309",
-    "server:shadow": "pscale connect to-do-app --port 3319",
+    "server:main": "pscale connect to-do-app main --port 3309",
+    "server:shadow": "pscale connect to-do-app shadow --port 3319",
     "server": "concurrently \"npm run server:prisma\" \"npm run server:main\" \"npm run server:shadow\""
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.15",
     "@mui/styled-engine-sc": "^5.11.11",
     "@prisma/client": "^4.12.0",
@@ -32,6 +33,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.8",
     "styled-components": "^5.3.9",
     "typescript": "5.0.2"
   },
