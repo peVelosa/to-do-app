@@ -7,8 +7,19 @@ import {
   IconButton,
 } from "@mui/material";
 import React, { useState } from "react";
+import { ControllerRenderProps } from "react-hook-form";
 
-const Password = () => {
+type PasswordProps = {
+  field: ControllerRenderProps<
+    {
+      email: string;
+      password: string;
+    },
+    "password"
+  >;
+};
+
+const Password = ({ field }: PasswordProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
@@ -17,10 +28,10 @@ const Password = () => {
     <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
       <InputLabel htmlFor="password">Password</InputLabel>
       <OutlinedInput
-        name="password"
         label="Password"
         id="password"
         type={isPasswordVisible ? "text" : "password"}
+        {...field}
         endAdornment={
           <InputAdornment position="end">
             <IconButton

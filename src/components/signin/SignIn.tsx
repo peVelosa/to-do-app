@@ -15,23 +15,23 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Email from "../fields/Email/Email";
 import Password from "../fields/Password/Password";
+import { Controller, useForm } from "react-hook-form";
+import { SignInFormType } from "@/types/Sign";
 
 const theme = createTheme();
 
-const defaultErrors = {
-  email: false,
-  password: false,
-};
-type defaultErrorsType = {
-  email: boolean;
-  password: boolean;
-};
 const SignIn = () => {
-  const [errors, setErrors] = useState<defaultErrorsType>(defaultErrors);
+  const { control, handleSubmit: formSubmit } = useForm<SignInFormType>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const onSubmit = (data) => console.log(data);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    formSubmit(onSubmit);
   };
 
   return (
@@ -52,14 +52,17 @@ const SignIn = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <Email />
-            <Password />
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => <Email field={field} />}
+            />
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => <Password field={field} />}
+            />
             <Button
               type="submit"
               fullWidth
