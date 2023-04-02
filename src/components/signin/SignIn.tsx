@@ -21,17 +21,14 @@ import { SignInFormType } from "@/types/Sign";
 const theme = createTheme();
 
 const SignIn = () => {
-  const { control, handleSubmit: formSubmit } = useForm<SignInFormType>({
+  const { control, handleSubmit } = useForm<SignInFormType>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
-  const onSubmit = (data) => console.log(data);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    formSubmit(onSubmit);
+  const onSubmit = (data) => {
+    const { email, password } = data;
   };
 
   return (
@@ -52,16 +49,16 @@ const SignIn = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <Controller
-              name="email"
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{ mt: 1 }}
+          >
+            <Email control={control} name="email" rules={{ required: true }} />
+            <Password
               control={control}
-              render={({ field }) => <Email field={field} />}
-            />
-            <Controller
               name="password"
-              control={control}
-              render={({ field }) => <Password field={field} />}
+              rules={{ required: true }}
             />
             <Button
               type="submit"

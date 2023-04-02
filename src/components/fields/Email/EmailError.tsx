@@ -1,7 +1,16 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
-const EmailError = () => {
-  return <div>EmailError</div>;
+type EmailErrorProps = {
+  message?: string;
+};
+
+const EmailError = ({ message }: EmailErrorProps) => {
+  return (
+    <Typography variant="subtitle2" color="error" component={"span"}>
+      {message}
+    </Typography>
+  );
 };
 
 export default EmailError;

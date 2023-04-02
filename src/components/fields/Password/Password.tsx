@@ -7,29 +7,26 @@ import {
   IconButton,
 } from "@mui/material";
 import React, { useState } from "react";
-import { ControllerRenderProps } from "react-hook-form";
+import { useController, UseControllerProps } from "react-hook-form";
+import { SignInFormType } from "@/types/Sign";
 
-type PasswordProps = {
-  field: ControllerRenderProps<
-    {
-      email: string;
-      password: string;
-    },
-    "password"
-  >;
-};
+const Password = ({
+  control,
+  name,
+  rules,
+}: UseControllerProps<SignInFormType>) => {
+  const { field, fieldState } = useController({ control, name, rules });
 
-const Password = ({ field }: PasswordProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
 
   return (
     <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
-      <InputLabel htmlFor="password">Password</InputLabel>
+      <InputLabel htmlFor={name}>Password</InputLabel>
       <OutlinedInput
         label="Password"
-        id="password"
+        id={name}
         type={isPasswordVisible ? "text" : "password"}
         {...field}
         endAdornment={
