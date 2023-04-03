@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { ThemeProvider } from "@emotion/react";
 import {
@@ -10,13 +10,14 @@ import {
   Button,
   Grid,
   createTheme,
-  Link,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Email from "../fields/Email/Email";
 import Password from "../fields/Password/Password";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { SignInFormType } from "@/types/Sign";
+import Information from "../fields/Information";
+import CustomLink from "../Link/Link";
 
 const theme = createTheme();
 
@@ -27,8 +28,9 @@ const SignIn = () => {
       password: "",
     },
   });
-  const onSubmit = (data) => {
+  const onSubmit = (data: SignInFormType) => {
     const { email, password } = data;
+    if (!email || !password) return;
   };
 
   return (
@@ -43,6 +45,7 @@ const SignIn = () => {
             alignItems: "center",
           }}
         >
+          <Information />
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -68,11 +71,12 @@ const SignIn = () => {
             >
               Sign In
             </Button>
-            <Grid container>
+            <Grid container justifyContent={"flex-end"}>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <CustomLink
+                  href="/signup"
+                  message="Don't have an account? Sign Up"
+                />
               </Grid>
             </Grid>
           </Box>

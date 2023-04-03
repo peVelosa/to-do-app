@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { useController, UseControllerProps } from "react-hook-form";
 import { SignInFormType } from "@/types/Sign";
+import PasswordError from "./PasswordError";
 
 const Password = ({
   control,
@@ -42,6 +43,7 @@ const Password = ({
           </InputAdornment>
         }
       />
+      {fieldState.error && <PasswordError message={fieldState.error.message} />}
     </FormControl>
   );
 };
