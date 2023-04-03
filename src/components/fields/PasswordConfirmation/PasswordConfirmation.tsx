@@ -9,13 +9,13 @@ import {
 import React, { useState } from "react";
 import { useController, UseControllerProps } from "react-hook-form";
 import { SignInFormType, SignUpFormType } from "@/types/Sign";
-import PasswordError from "./PasswordError";
+import PasswordConfirmationError from "./PasswordConfirmationError";
 
-const Password = ({
+const PasswordConfirmation = ({
   control,
   name,
   rules,
-}: UseControllerProps<SignInFormType | SignUpFormType>) => {
+}: UseControllerProps<SignUpFormType>) => {
   const { field, fieldState } = useController({ control, name, rules });
 
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -24,16 +24,16 @@ const Password = ({
 
   return (
     <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
-      <InputLabel htmlFor={name}>Password</InputLabel>
+      <InputLabel htmlFor={name}>Password Confirmation</InputLabel>
       <OutlinedInput
-        label="Password"
+        label="Password Confirmation"
         id={name}
         type={isPasswordVisible ? "text" : "password"}
         {...field}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
-              aria-label="toggle password visibility"
+              aria-label="toggle password confirmation visibility"
               onClick={handlePassword}
               onMouseDown={handlePassword}
               edge="end"
@@ -43,9 +43,11 @@ const Password = ({
           </InputAdornment>
         }
       />
-      {fieldState.error && <PasswordError message={fieldState.error.message} />}
+      {fieldState.error && (
+        <PasswordConfirmationError message={fieldState.error.message} />
+      )}
     </FormControl>
   );
 };
 
-export default Password;
+export default PasswordConfirmation;

@@ -12,16 +12,16 @@ import {
   createTheme,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Email from "../fields/Email/Email";
-import Password from "../fields/Password/Password";
+import Email from "@/fields/Email/Email";
+import Password from "@/fields/Password/Password";
 import { useForm } from "react-hook-form";
 import { SignInFormType } from "@/types/Sign";
-import Information from "../fields/Information";
+import Information from "@/fields/Information";
 import CustomLink from "../Link/Link";
 
 const theme = createTheme();
 
-const SignIn = () => {
+const SignIn = (): JSX.Element => {
   const { control, handleSubmit } = useForm<SignInFormType>({
     defaultValues: {
       email: "",

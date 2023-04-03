@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import NextLink from "next/link";
 import MuiLink from "@mui/material/Link";
 
 type CustomLinkProps = {
@@ -9,9 +9,9 @@ type CustomLinkProps = {
 
 const CustomLink = ({ href, message }: CustomLinkProps) => {
   return (
-    <Link href={href}>
-      <MuiLink>{message}</MuiLink>
-    </Link>
+    <MuiLink href={href} component={NextLink}>
+      {message}
+    </MuiLink>
   );
 };
 
