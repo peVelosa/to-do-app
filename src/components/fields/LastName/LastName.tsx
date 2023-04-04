@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import React from "react";
-import { SignInFormType, SignUpFormType } from "@/types/Sign";
+import type { SignUpFormType } from "@/types/Sign";
 import { UseControllerProps, useController } from "react-hook-form";
 import LastNameError from "./LastNameError";
 
@@ -15,7 +15,11 @@ const LastName = ({
     <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
       <InputLabel htmlFor={name}>Last Name</InputLabel>
       <OutlinedInput {...field} label="Last Name" id={name} type={"text"} />
-      {fieldState.error && <LastNameError message={fieldState.error.message} />}
+      {!fieldState.error ? null : fieldState.error.type === "required" ? (
+        <LastNameError message={"This is required"} />
+      ) : (
+        <LastNameError message={fieldState.error.message} />
+      )}
     </FormControl>
   );
 };

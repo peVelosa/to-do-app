@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useController, UseControllerProps } from "react-hook-form";
-import { SignInFormType, SignUpFormType } from "@/types/Sign";
+import type { SignUpFormType } from "@/types/Sign";
 import PasswordConfirmationError from "./PasswordConfirmationError";
 
 const PasswordConfirmation = ({
@@ -43,7 +43,9 @@ const PasswordConfirmation = ({
           </InputAdornment>
         }
       />
-      {fieldState.error && (
+      {!fieldState.error ? null : fieldState.error.type === "required" ? (
+        <PasswordConfirmationError message={"This is required"} />
+      ) : (
         <PasswordConfirmationError message={fieldState.error.message} />
       )}
     </FormControl>

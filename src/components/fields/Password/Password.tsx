@@ -43,7 +43,11 @@ const Password = ({
           </InputAdornment>
         }
       />
-      {fieldState.error && <PasswordError message={fieldState.error.message} />}
+      {!fieldState.error ? null : fieldState.error.type === "required" ? (
+        <PasswordError message={"This is required"} />
+      ) : (
+        <PasswordError message={fieldState.error.message} />
+      )}
     </FormControl>
   );
 };

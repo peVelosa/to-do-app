@@ -21,20 +21,75 @@ import LastName from "@/fields/LastName/LastName";
 import FirstName from "@/fields/FirstName/FirstName";
 import PasswordConfirmation from "@/fields/PasswordConfirmation/PasswordConfirmation";
 import CustomLink from "../Link/Link";
+import PasswordCheckList from "../fields/PasswordCheckList";
+import axios from "@/libs/axios";
 
 const theme = createTheme();
 
+const passwordRegex =
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const onlyLetters = /[a-z]/gi;
+
 const SignUp = (): JSX.Element => {
-  const { control, handleSubmit } = useForm<SignUpFormType>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-    },
-  });
-  const onSubmit = (data: SignUpFormType) => console.log(data);
+  const { control, handleSubmit, watch, setError, setValue } =
+    useForm<SignUpFormType>({
+      defaultValues: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+      },
+    });
+  const onSubmit = async (data: SignUpFormType) => {
+    const { password, passwordConfirmation, email, firstName, lastName } = data;
+    if (!onlyLetters.test(firstName)) {
+      setError("firstName", {
+        type: "custom",
+        message: "First name must contain only letter",
+      });
+      return;
+    }
+    if (!onlyLetters.test(lastName)) {
+      setError("lastName", {
+        type: "custom",
+        message: "Last name must contain only letter",
+      });
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setError("email", {
+        type: "custom",
+        message: "Invalid email address!",
+      });
+      return;
+    }
+    if (!passwordRegex.test(password)) {
+      setError("password", {
+        type: "custom",
+        message: "Password must contain the following rules",
+      });
+      return;
+    }
+    if (password != passwordConfirmation) {
+      setError("password", {
+        type: "custom",
+        message: "Passwords differents",
+      });
+      return;
+    }
+    const res = await axios.post("/user", {
+      req: data,
+    });
+    if (res.data.err) {
+      setError("email", {
+        type: "custom",
+        message: "Email already exists",
+      });
+      return;
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -89,6 +144,9 @@ const SignUp = (): JSX.Element => {
                   name="password"
                   rules={{ required: true }}
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <PasswordCheckList password={watch("password")} />
               </Grid>
               <Grid item xs={12}>
                 <PasswordConfirmation
