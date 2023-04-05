@@ -22,6 +22,7 @@ import FirstName from "@/fields/FirstName/FirstName";
 import PasswordConfirmation from "@/fields/PasswordConfirmation/PasswordConfirmation";
 import CustomLink from "../Link/Link";
 import PasswordCheckList from "../fields/PasswordCheckList";
+import { useRouter } from "next/router";
 import axios from "@/libs/axios";
 
 const theme = createTheme();
@@ -32,6 +33,7 @@ const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const onlyLetters = /[a-z]/gi;
 
 const SignUp = (): JSX.Element => {
+  const router = useRouter();
   const { control, handleSubmit, watch, setError, setValue } =
     useForm<SignUpFormType>({
       defaultValues: {
@@ -89,6 +91,7 @@ const SignUp = (): JSX.Element => {
       });
       return;
     }
+    router.push("/signin");
   };
 
   return (
