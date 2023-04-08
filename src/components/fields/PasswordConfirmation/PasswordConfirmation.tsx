@@ -23,7 +23,13 @@ const PasswordConfirmation = ({
   const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
 
   return (
-    <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
+    <FormControl
+      sx={{ my: 1 }}
+      variant="outlined"
+      fullWidth
+      required
+      error={!!fieldState.error}
+    >
       <InputLabel htmlFor={name}>Password Confirmation</InputLabel>
       <OutlinedInput
         label="Password Confirmation"

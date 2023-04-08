@@ -6,19 +6,31 @@ type getAuthType = {
   password: string;
 };
 
-export default async function getAuth({
-  email,
-  password,
-}: getAuthType): Promise<boolean> {
+export default async function getAuth({ email, password }: getAuthType) {
   const user = await prisma.user.findUnique({
     where: {
       email,
     },
     select: {
       password: true,
+      username: true,
+      id: true,
+      email: true,
     },
   });
   const userPassword = user?.password;
-  if (!userPassword) return false;
-  return bcrypt.compare(password, userPassword);
+  if (!userPassword) return { isAuth: false, data: {} };
+
+  const isAuth = await bcrypt.compare(password, userPassword);
+
+  if (!isAuth) return { isAuth, data: {} };
+
+  return {
+    isAuth,
+    data: {
+      email: user.email,
+      id: user.id,
+      username: user.username,
+    },
+  };
 }

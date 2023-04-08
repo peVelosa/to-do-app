@@ -23,7 +23,13 @@ const Password = ({
   const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
 
   return (
-    <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
+    <FormControl
+      sx={{ my: 1 }}
+      variant="outlined"
+      fullWidth
+      required
+      error={!!fieldState.error}
+    >
       <InputLabel htmlFor={name}>Password</InputLabel>
       <OutlinedInput
         label="Password"

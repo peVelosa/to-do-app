@@ -1,6 +1,17 @@
-import Head from 'next/head'
+import Head from "next/head";
+import useAuth from "@/utils/hooks/useAuth";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
+import getUser from "@/utils/user/getUser";
+import { formatPrisma } from "@/services/formatPrisma";
+import Navbar from "@/components/Navbar";
+import { User } from "@/types/Auth";
 
-export default function Home() {
+type HomeProps = {
+  user: User;
+};
+
+export default function Home({ user }: HomeProps) {
   return (
     <>
       <Head>
@@ -9,7 +20,26 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-     <div>oi</div>
+      <Navbar username={user.username} />
     </>
-  )
+  );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { "nextauth.token": authToken, "nextauth.id": idToken } =
+    parseCookies(ctx);
+
+  if (!authToken) {
+    return {
+      redirect: {
+        destination: "/signin",
+        permanent: false,
+      },
+    };
+  }
+  const user = await getUser({ id: idToken });
+
+  return {
+    props: { user },
+  };
+};

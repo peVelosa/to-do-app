@@ -30,6 +30,7 @@
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
+    "nookies": "^2.5.2",
     "prettier": "^2.8.7",
     "react": "18.2.0",
     "react-dnd": "^16.0.1",
@@ -37,10 +38,12 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.8",
     "styled-components": "^5.3.9",
-    "typescript": "5.0.2"
+    "typescript": "5.0.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/uuid": "^9.0.1",
     "prisma": "^4.12.0"
   }
 }

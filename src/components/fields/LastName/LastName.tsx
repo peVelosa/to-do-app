@@ -12,7 +12,13 @@ const LastName = ({
   const { field, fieldState } = useController({ control, name, rules });
 
   return (
-    <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
+    <FormControl
+      sx={{ my: 1 }}
+      variant="outlined"
+      fullWidth
+      required
+      error={!!fieldState.error}
+    >
       <InputLabel htmlFor={name}>Last Name</InputLabel>
       <OutlinedInput {...field} label="Last Name" id={name} type={"text"} />
       {!fieldState.error ? null : fieldState.error.type === "required" ? (

@@ -12,7 +12,13 @@ const Email = ({
   const { field, fieldState } = useController({ control, name, rules });
 
   return (
-    <FormControl sx={{ my: 1 }} variant="outlined" fullWidth required>
+    <FormControl
+      sx={{ my: 1 }}
+      variant="outlined"
+      fullWidth
+      required
+      error={!!fieldState.error}
+    >
       <InputLabel htmlFor={name}>Email</InputLabel>
       <OutlinedInput {...field} label="Email" id={name} type={"text"} />
       {!fieldState.error ? null : fieldState.error.type === "required" ? (

@@ -19,13 +19,19 @@ import { SignInFormType } from "@/types/Sign";
 import Information from "@/fields/Information";
 import CustomLink from "../Link/Link";
 import useAuth from "@/utils/hooks/useAuth";
+import CredentialNotFound from "../fields/CredentialNotFound";
 
 const theme = createTheme();
 
 const SignIn = (): JSX.Element => {
   const { signIn } = useAuth();
 
-  const { control, handleSubmit } = useForm<SignInFormType>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<SignInFormType>({
     defaultValues: {
       email: "",
       password: "",
@@ -34,7 +40,7 @@ const SignIn = (): JSX.Element => {
   const onSubmit = async (data: SignInFormType) => {
     const { email, password } = data;
     if (!email || !password) return;
-    signIn({ email, password });
+    signIn({ email, password, setError });
   };
 
   return (
@@ -67,6 +73,7 @@ const SignIn = (): JSX.Element => {
               name="password"
               rules={{ required: true }}
             />
+            <CredentialNotFound errors={errors} />
             <Button
               type="submit"
               fullWidth
