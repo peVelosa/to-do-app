@@ -1,16 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import getAuth from "@/utils/auth/getAuth";
 import createUser from "@/utils/user/createUser";
-import getAllUsers from "@/utils/user/getAll";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "GET") {
-    const data = await getAllUsers();
-    res.status(200).json(data);
-  }
   if (req.method === "POST") {
     const { email, firstName, lastName, password } = req.body.req;
     try {

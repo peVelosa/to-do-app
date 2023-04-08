@@ -1,6 +1,8 @@
 //default styles
 import "@/styles/globals.css";
 
+import AuthProvider from "@/utils/context/AuthContext";
+
 //default AppProps types
 import type { AppProps } from "next/app";
 
@@ -15,10 +17,12 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <DndProvider backend={HTML5Backend}>
-        <Component {...pageProps} />
-      </DndProvider>
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <DndProvider backend={HTML5Backend}>
+          <Component {...pageProps} />
+        </DndProvider>
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }

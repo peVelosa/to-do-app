@@ -18,19 +18,23 @@ import { useForm } from "react-hook-form";
 import { SignInFormType } from "@/types/Sign";
 import Information from "@/fields/Information";
 import CustomLink from "../Link/Link";
+import useAuth from "@/utils/hooks/useAuth";
 
 const theme = createTheme();
 
 const SignIn = (): JSX.Element => {
+  const { signIn } = useAuth();
+
   const { control, handleSubmit } = useForm<SignInFormType>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
-  const onSubmit = (data: SignInFormType) => {
+  const onSubmit = async (data: SignInFormType) => {
     const { email, password } = data;
     if (!email || !password) return;
+    signIn({ email, password });
   };
 
   return (
