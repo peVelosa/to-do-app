@@ -7,18 +7,18 @@ import Button from "@mui/material/Button";
 import useAuth from "@/utils/hooks/useAuth";
 
 type NavbarProps = {
-  username: string;
+  username: string | null;
 };
 
-export default function Navbar({ username }: NavbarProps) {
-  const { signOut } = useAuth();
+export default function Navbar({ username = null }: NavbarProps) {
+  const { user, signOut } = useAuth();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {username}
+            {username || user?.username}
           </Typography>
           <Button color="inherit" onClick={signOut}>
             Log Out

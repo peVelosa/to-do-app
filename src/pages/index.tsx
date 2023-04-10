@@ -6,6 +6,7 @@ import getUser from "@/utils/user/getUser";
 import { formatPrisma } from "@/services/formatPrisma";
 import Navbar from "@/components/Navbar";
 import { User } from "@/types/Auth";
+import Main from "@/components/main/Main";
 
 type HomeProps = {
   user: User;
@@ -21,6 +22,7 @@ export default function Home({ user }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar username={user.username} />
+      <Main />
     </>
   );
 }
