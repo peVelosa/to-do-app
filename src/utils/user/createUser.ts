@@ -16,12 +16,12 @@ export default async function createUser({
 }: createUserType) {
   const numSaltRounds = 8;
   const hashedPassword = await bcrypt.hash(password, numSaltRounds);
-  const username = `${firstName} ${lastName}`;
+
   return await prisma.user.create({
     data: {
-      email: "velosa2002@gmail.com",
-      username: "Pedro Velosa",
-      password: "Pedro123@",
+      email,
+      username: `${firstName} ${lastName}`,
+      password: hashedPassword,
     },
   });
 }

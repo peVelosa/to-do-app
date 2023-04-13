@@ -1,16 +1,26 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import getAuth from "@/utils/auth/getAuth";
 import createUser from "@/utils/user/createUser";
 import type { NextApiRequest, NextApiResponse } from "next";
-
+import prisma from "@/libs/prisma";
+import bcrypt from "bcrypt";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
     const { email, firstName, lastName, password } = req.body.req;
-    const data = await createUser({ email, firstName, lastName, password });
-    res.status(201).json(data);
+    const numSaltRounds = 8;
+    const hashedPassword = await bcrypt.hash(password, numSaltRounds);
+
+    await prisma.user.create({
+      data: {
+        email,
+        username: `${firstName} ${lastName}`,
+        password: hashedPassword,
+      },
+    });
+    await createUser({ email, firstName, lastName, password });
+    res.status(201).json(req.body.req);
     // try {
     //   await createUser({ email, firstName, lastName, password });
     //   res.status(201).end();
