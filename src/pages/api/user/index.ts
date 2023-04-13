@@ -12,15 +12,15 @@ export default async function handler(
     const numSaltRounds = 8;
     const hashedPassword = await bcrypt.hash(password, numSaltRounds);
 
-    await prisma.user.create({
-      data: {
-        email,
-        username: `${firstName} ${lastName}`,
-        password: hashedPassword,
-      },
-    });
-    await createUser({ email, firstName, lastName, password });
-    res.status(201).json(req.body.req);
+    // await prisma.user.create({
+    //   data: {
+    //     email,
+    //     username: `${firstName} ${lastName}`,
+    //     password: hashedPassword,
+    //   },
+    // });
+    // await createUser({ email, firstName, lastName, password });
+    res.status(201).json({ data: req.body.req, senha: hashedPassword });
     // try {
     //   await createUser({ email, firstName, lastName, password });
     //   res.status(201).end();
