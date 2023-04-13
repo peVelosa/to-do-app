@@ -9,11 +9,13 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const { email, firstName, lastName, password } = req.body.req;
-    try {
-      await createUser({ email, firstName, lastName, password });
-      res.status(201).end();
-    } catch {
-      res.status(202).json({ err: "Email already exists" });
-    }
+    const data = await createUser({ email, firstName, lastName, password });
+    res.status(201).json(data);
+    // try {
+    //   await createUser({ email, firstName, lastName, password });
+    //   res.status(201).end();
+    // } catch {
+    //   res.status(202).json({ err: "Email already exists" });
+    // }
   }
 }
