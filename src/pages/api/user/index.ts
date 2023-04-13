@@ -14,9 +14,9 @@ export default async function handler(
 
     const data = await prisma.user.create({
       data: {
-        email,
-        username: `${firstName} ${lastName}`,
-        password: hashedPassword,
+        email: "velosa2002@gmail.com",
+        username: `Pedro Velosa`,
+        password: "oi",
       },
     });
     // await createUser({ email, firstName, lastName, password });
