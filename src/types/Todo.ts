@@ -1,12 +1,14 @@
 export type ToDoType = {
   id: string;
   title: string;
-  status: "to-do" | "doing" | "done";
+  status: StatusType;
   tasks: TasksType[];
   description: string;
   user_Id: string;
   updatedAt: Date;
 };
+
+export type StatusType = "to-do" | "doing" | "done";
 
 export type TasksType = {
   id: string;

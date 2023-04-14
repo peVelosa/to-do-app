@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "ts-lint": "tsc --noEmit --incremental",
     "server:prisma": "npx prisma studio",
     "server:main": "pscale connect to-do-app main --port 3309",
     "server:shadow": "pscale connect to-do-app shadow --port 3319",
