@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { formatPrisma } from "@/services/formatPrisma";
+import createTodo from "@/utils/todos/createTodo";
 import getTodos from "@/utils/todos/getTodos";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -16,6 +17,16 @@ export default async function handler(
       res.status(201).json(formattedData);
     } catch {
       res.status(404).end();
+    }
+  }
+  if (req.method === "POST") {
+    const { user_Id, newItem } = req.body;
+    if (!user_Id) res.status(404).json({ err: "Something went wrong" });
+    try {
+      await createTodo({ newItem, user_Id });
+      res.status(201).json("criado");
+    } catch {
+      res.status(404).json("Something went wrong");
     }
   }
 }

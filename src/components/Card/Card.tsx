@@ -1,11 +1,18 @@
 import React from "react";
+import { ToDoType } from "@/types/Todo";
+import { Card as CardMui, Box, CardContent } from "@mui/material";
 import { useDrag } from "react-dnd";
 
-const Card = ({ isDragging, text }) => {
+type CardProps = {
+  isDragging: boolean;
+  toDo: ToDoType;
+};
+
+const Card = ({ toDo }: CardProps) => {
   const [{ opacity }, dragRef] = useDrag(
     () => ({
       type: "card",
-      item: { text, ola: "oi" },
+      item: { toDo },
       collect: (monitor) => ({
         opacity: monitor.isDragging() ? 0.5 : 1,
       }),
@@ -13,9 +20,15 @@ const Card = ({ isDragging, text }) => {
     []
   );
   return (
-    <div ref={dragRef} style={{ opacity }}>
-      <h1>{text}</h1>
-    </div>
+    <CardMui
+      ref={dragRef}
+      style={{ opacity }}
+      sx={{ width: "100%", cursor: "pointer" }}
+    >
+      <CardContent>
+        <h1>{toDo.title}</h1>
+      </CardContent>
+    </CardMui>
   );
 };
 
