@@ -7,7 +7,7 @@ type getTodosType = {
 export default async function getTodos({
   user_Id,
 }: getTodosType): Promise<ToDoType[]> {
-  return await prisma.to_do.findMany({
+  return (await prisma.to_do.findMany({
     where: {
       user_Id,
     },
@@ -27,5 +27,5 @@ export default async function getTodos({
       updatedAt: true,
       user_Id: true,
     },
-  });
+  })) as ToDoType[];
 }
