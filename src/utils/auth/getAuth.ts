@@ -9,7 +9,7 @@ type getAuthType = {
 export default async function getAuth({ email, password }: getAuthType) {
   const user = await prisma.user.findUnique({
     where: {
-      email,
+      email: email.toLocaleLowerCase(),
     },
     select: {
       password: true,

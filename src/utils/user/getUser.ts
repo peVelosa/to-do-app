@@ -9,7 +9,7 @@ export default async function getUser({ email, id }: getUserType) {
   if (email) {
     return await prisma.user.findUnique({
       where: {
-        email,
+        email: email.toLocaleLowerCase(),
       },
       select: {
         username: true,

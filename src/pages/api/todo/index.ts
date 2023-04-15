@@ -2,6 +2,7 @@
 import { formatPrisma } from "@/services/formatPrisma";
 import createTodo from "@/utils/todos/createTodo";
 import getTodos from "@/utils/todos/getTodos";
+import updateTodo from "@/utils/todos/updateTodo";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -24,7 +25,18 @@ export default async function handler(
     if (!user_Id) res.status(404).json({ err: "Something went wrong" });
     try {
       await createTodo({ newItem, user_Id });
-      res.status(201).json("criado");
+      res.status(201).end();
+    } catch {
+      res.status(404).json("Something went wrong");
+    }
+  }
+  if (req.method === "PUT") {
+    const { id, title, description, status } = req.body;
+    if (!id || !title || !status)
+      res.status(404).json({ err: "Something went wrong" });
+    try {
+      await updateTodo({ id, title, description, status });
+      res.status(201).end();
     } catch {
       res.status(404).json("Something went wrong");
     }

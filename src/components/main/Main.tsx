@@ -2,6 +2,7 @@ import React from "react";
 import {
   CircularProgress,
   Container,
+  Grid,
   Stack,
   ThemeProvider,
   createTheme,
@@ -29,15 +30,17 @@ const Main = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container component={"main"} sx={{ mb: 6, overflow: "auto" }}>
-        <Stack
-          flexDirection={"row"}
-          gap={2}
-          sx={{ height: "100%", overflow: "auto" }}
-        >
-          <DraggableSection status={"to-do"} toDos={data["to-do"]} />
-          <DraggableSection status={"doing"} toDos={data["doing"]} />
-          <DraggableSection status={"done"} toDos={data["done"]} />
-        </Stack>
+        <Grid container spacing={2} sx={{ height: "100%", overflow: "auto" }}>
+          <Grid item xs={4}>
+            <DraggableSection status={"to-do"} toDos={data["to-do"]} />
+          </Grid>
+          <Grid item xs={4}>
+            <DraggableSection status={"doing"} toDos={data["doing"]} />
+          </Grid>
+          <Grid item xs={4}>
+            <DraggableSection status={"done"} toDos={data["done"]} />
+          </Grid>
+        </Grid>
       </Container>
     </ThemeProvider>
   );

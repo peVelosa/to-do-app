@@ -27,5 +27,8 @@ export default async function getTodos({
       updatedAt: true,
       user_Id: true,
     },
+    orderBy: {
+      updatedAt: "desc",
+    },
   })) as ToDoType[];
 }

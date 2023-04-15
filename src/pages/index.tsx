@@ -1,20 +1,17 @@
 import Head from "next/head";
-import useAuth from "@/utils/hooks/useAuth";
-import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import getUser from "@/utils/user/getUser";
-import { formatPrisma } from "@/services/formatPrisma";
 import Navbar from "@/components/Navbar";
 import { User } from "@/types/Auth";
 import Main from "@/components/main/Main";
-import { Stack } from "@mui/material";
-import NewToDo from "@/components/NewToDo/NewToDo";
+import NewToDo from "@/components/NewToDo";
+import type { GetServerSideProps, NextPage } from "next";
 
 type HomeProps = {
   user: User;
 };
 
-export default function Home({ user }: HomeProps) {
+const Home: NextPage<HomeProps> = ({ user }) => {
   return (
     <>
       <Head>
@@ -28,7 +25,7 @@ export default function Home({ user }: HomeProps) {
       <Main />
     </>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { "nextauth.token": authToken, "nextauth.id": idToken } =
@@ -48,3 +45,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: { user },
   };
 };
+
+export default Home;
