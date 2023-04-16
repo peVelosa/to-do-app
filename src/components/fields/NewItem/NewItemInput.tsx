@@ -5,15 +5,10 @@ import {
   InputAdornment,
   InputLabel,
 } from "@mui/material";
-import React, { FormEvent } from "react";
-import {
-  SubmitHandler,
-  UseControllerProps,
-  UseFormHandleSubmit,
-  useController,
-} from "react-hook-form";
-import NewItemInputError from "./NewItemInputError";
+import React from "react";
+import { UseControllerProps, useController } from "react-hook-form";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import HelperText from "../Errors/HelperText";
 import type { NewItemType } from "@/types/NewItem";
 
 interface NewItemInputProps extends UseControllerProps<NewItemType> {
@@ -52,9 +47,9 @@ const NewItemInput = ({
           }
         />
         {!fieldState.error ? null : fieldState.error.type === "required" ? (
-          <NewItemInputError message={"This is required"} />
+          <HelperText message={"This is required"} />
         ) : (
-          <NewItemInputError message={fieldState.error.message} />
+          <HelperText message={fieldState.error.message} />
         )}
       </FormControl>
     </>

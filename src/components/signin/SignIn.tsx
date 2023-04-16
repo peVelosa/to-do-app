@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ThemeProvider } from "@emotion/react";
 import {
@@ -12,19 +12,19 @@ import {
   createTheme,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Email from "@/fields/Email/Email";
-import Password from "@/fields/Password/Password";
 import { useForm } from "react-hook-form";
-import { SignInFormType } from "@/types/Sign";
 import Information from "@/fields/Information";
 import CustomLink from "../Link/Link";
 import useAuth from "@/utils/hooks/useAuth";
-import CredentialNotFound from "../fields/CredentialNotFound";
+import CredentialNotFound from "../fields/Errors/CredentialNotFound";
+import StyledInput from "../fields/StyledInput";
+import PasswordEndAdornment from "../fields/Password/PasswordEndAdornment";
+import type { SignInFormType } from "@/types/Sign";
 
 const theme = createTheme();
 
 const SignIn = (): JSX.Element => {
-  const { signIn } = useAuth();
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const {
     control,
@@ -37,12 +37,15 @@ const SignIn = (): JSX.Element => {
       password: "",
     },
   });
+  const { signIn } = useAuth();
 
   const onSubmit = async (data: SignInFormType) => {
     const { email, password } = data;
     if (!email || !password) return;
     signIn({ email, password, setError });
   };
+
+  const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
 
   return (
     <ThemeProvider theme={theme}>
@@ -68,11 +71,25 @@ const SignIn = (): JSX.Element => {
             onSubmit={handleSubmit(onSubmit)}
             sx={{ mt: 1 }}
           >
-            <Email control={control} name="email" rules={{ required: true }} />
-            <Password
+            <StyledInput
+              control={control}
+              name="email"
+              rules={{ required: true }}
+              label="Email"
+              type="email"
+            />
+            <StyledInput
               control={control}
               name="password"
               rules={{ required: true }}
+              label="Password"
+              type={isPasswordVisible ? "text" : "password"}
+              endAdornment={
+                <PasswordEndAdornment
+                  handleVisible={handlePassword}
+                  isVisible={isPasswordVisible}
+                />
+              }
             />
             <CredentialNotFound errors={errors} />
             <Button

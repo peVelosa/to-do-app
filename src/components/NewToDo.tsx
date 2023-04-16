@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "@/utils/hooks/useAuth";
 import NewItemInput from "./fields/NewItem/NewItemInput";
 import type { NewItemType } from "@/types/NewItem";
-import { FormatedToDoType } from "@/types/Todo";
+import type { FormatedToDoType } from "@/types/Todo";
 
 const NewToDo = () => {
   const { user } = useAuth();
@@ -70,7 +70,7 @@ const NewToDo = () => {
     create.mutate({ newItem: data.newItem });
 
   return (
-    <Box sx={{ px: 2, mx: "auto", mb: 5, maxWidth: "45ch", width: "100%" }}>
+    <Box sx={{ px: 2, mx: "auto", mb: 3, maxWidth: "45ch", width: "100%" }}>
       <NewItemInput
         control={control}
         name="newItem"

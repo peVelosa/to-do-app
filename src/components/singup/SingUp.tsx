@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Container,
@@ -12,38 +12,35 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { ThemeProvider } from "@mui/material/styles";
-import { Control, useForm } from "react-hook-form";
-import { SignInFormType, SignUpFormType } from "@/types/Sign";
+import { useForm } from "react-hook-form";
 import Information from "@/fields/Information";
-import Email from "@/fields/Email/Email";
-import Password from "@/fields/Password/Password";
-import LastName from "@/fields/LastName/LastName";
-import FirstName from "@/fields/FirstName/FirstName";
-import PasswordConfirmation from "@/fields/PasswordConfirmation/PasswordConfirmation";
 import CustomLink from "../Link/Link";
-import PasswordCheckList from "../fields/PasswordCheckList";
+import PasswordCheckList from "../fields/Password/PasswordCheckList";
 import { useRouter } from "next/router";
 import axios from "@/libs/axios";
+import StyledInput from "../fields/StyledInput";
+import PasswordEndAdornment from "../fields/Password/PasswordEndAdornment";
+import { emailRegex, onlyLetters, passwordRegex } from "@/utils/Regex/regex";
+import type { SignUpFormType } from "@/types/Sign";
 
 const theme = createTheme();
 
-const passwordRegex =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const onlyLetters = /[a-z]/gi;
-
 const SignUp = (): JSX.Element => {
   const router = useRouter();
-  const { control, handleSubmit, watch, setError, setValue } =
-    useForm<SignUpFormType>({
-      defaultValues: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-      },
-    });
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [isPasswordConfirmationVisible, setIsPasswordConfirmationVisible] =
+    useState<boolean>(false);
+
+  const { control, handleSubmit, watch, setError } = useForm<SignUpFormType>({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+    },
+  });
   const onSubmit = async (data: SignUpFormType) => {
     const { password, passwordConfirmation, email, firstName, lastName } = data;
     if (!onlyLetters.test(firstName)) {
@@ -94,6 +91,10 @@ const SignUp = (): JSX.Element => {
     router.push("/signin");
   };
 
+  const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
+  const handlePasswordConfirmation = () =>
+    setIsPasswordConfirmationVisible(!isPasswordConfirmationVisible);
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -121,41 +122,63 @@ const SignUp = (): JSX.Element => {
           >
             <Grid container columnSpacing={2}>
               <Grid item xs={12} sm={6}>
-                <FirstName
+                <StyledInput
                   control={control}
                   name="firstName"
+                  label="First Name"
+                  type="text"
                   rules={{ required: true }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <LastName
+                <StyledInput
                   control={control}
                   name="lastName"
+                  label="Last Name"
+                  type="text"
                   rules={{ required: true }}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Email
-                  control={control as Control<SignInFormType | SignUpFormType>}
+                <StyledInput
+                  control={control}
                   name="email"
+                  label="Email"
+                  type="email"
                   rules={{ required: true }}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Password
-                  control={control as Control<SignInFormType | SignUpFormType>}
+                <StyledInput
+                  control={control}
                   name="password"
+                  label="Password"
+                  type={isPasswordVisible ? "text" : "password"}
                   rules={{ required: true }}
+                  endAdornment={
+                    <PasswordEndAdornment
+                      handleVisible={handlePassword}
+                      isVisible={isPasswordVisible}
+                    />
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
                 <PasswordCheckList password={watch("password")} />
               </Grid>
               <Grid item xs={12}>
-                <PasswordConfirmation
+                <StyledInput
                   control={control}
                   name="passwordConfirmation"
+                  label="Password Confirmation"
+                  type={isPasswordConfirmationVisible ? "text" : "password"}
                   rules={{ required: true }}
+                  endAdornment={
+                    <PasswordEndAdornment
+                      handleVisible={handlePasswordConfirmation}
+                      isVisible={isPasswordConfirmationVisible}
+                    />
+                  }
                 />
               </Grid>
             </Grid>
