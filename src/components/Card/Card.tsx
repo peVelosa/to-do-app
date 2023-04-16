@@ -1,8 +1,16 @@
-import React from "react";
-import { ToDoType } from "@/types/Todo";
-import { Card as CardMui, CardContent } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Card as CardMui,
+  CardContent,
+  Typography,
+  Divider,
+  CardActions,
+} from "@mui/material";
 import { useDrag } from "react-dnd";
+import Tasks from "./Tasks/Tasks";
+import AddTask from "./Tasks/AddTask";
 import { CardType } from "@/libs/CardType";
+import type { ToDoType } from "@/types/Todo";
 
 type CardProps = {
   isDragging: boolean;
@@ -10,6 +18,10 @@ type CardProps = {
 };
 
 const Card = ({ toDo }: CardProps) => {
+  const { title, tasks } = toDo;
+
+  const [isNewTaskActive, setIsNewTaskActive] = useState<boolean>(false);
+
   const [{ opacity }, dragRef] = useDrag(
     () => ({
       type: CardType,
@@ -20,14 +32,27 @@ const Card = ({ toDo }: CardProps) => {
     }),
     []
   );
+
+  const openNewTask = () => setIsNewTaskActive(true);
+  const closeNewTask = () => setIsNewTaskActive(false);
+
   return (
-    <CardMui
-      ref={dragRef}
-      style={{ opacity }}
-      sx={{ width: "100%", cursor: "pointer" }}
-    >
+    <CardMui ref={dragRef} style={{ opacity }} sx={{ width: "100%" }}>
       <CardContent>
-        <h1>{toDo.title}</h1>
+        <Typography component={"h1"} variant="h6" gutterBottom>
+          {title}
+        </Typography>
+      </CardContent>
+      <Divider variant="middle" />
+      <CardActions>
+        <AddTask openNewTask={openNewTask} />
+      </CardActions>
+      <CardContent sx={{ py: 0, m: 0, px: 1 }}>
+        <Tasks
+          tasks={tasks}
+          isNewTaskActive={isNewTaskActive}
+          closeNewTask={closeNewTask}
+        />
       </CardContent>
     </CardMui>
   );

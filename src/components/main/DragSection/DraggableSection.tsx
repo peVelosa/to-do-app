@@ -40,7 +40,8 @@ const DraggableSection = ({ toDos, status }: DraggableSectionProps) => {
   const changeStatus = useMutation({
     mutationKey: ["todos"],
     mutationFn: (toDo: ToDoType) => {
-      const { id, title, description } = toDo;
+      const { id, title, description, status: prevStatus } = toDo;
+      //id === '1' =>opt ui / status === prevStatus => status does not changed
       if (id === "1") return null as any;
       return axios.put("/todo", {
         id,
@@ -51,12 +52,12 @@ const DraggableSection = ({ toDos, status }: DraggableSectionProps) => {
     },
     onMutate: async (toDo) => {
       const { id, status: prevStatus } = toDo;
-
       await queryClient.cancelQueries({ queryKey: ["todos"] });
 
       const previousTodos = queryClient.getQueryData<FormatedToDoType>([
         "todos",
       ]);
+
       if (!previousTodos || id === "1") return;
 
       queryClient.setQueryData<unknown>(["todos"], (old: FormatedToDoType) => ({
@@ -67,6 +68,7 @@ const DraggableSection = ({ toDos, status }: DraggableSectionProps) => {
         ...old,
         [status]: [{ ...toDo, status: status }, ...old[status]],
       }));
+
       return { previousTodos };
     },
     onError: (err, variables, context) => {

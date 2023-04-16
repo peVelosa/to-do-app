@@ -22,3 +22,7 @@ export type FormatedToDoType = {
   doing: ToDoType[];
   done: ToDoType[];
 };
+
+export type NewTaskType = {
+  newTask: string;
+};
