@@ -10,7 +10,7 @@
     "ts-lint": "tsc --noEmit --incremental",
     "server:prisma": "npx prisma studio",
     "server:main": "pscale connect to-do-app main --port 3309",
-    "server:shadow": "pscale connect to-do-app shadow --port 3319",
+    "server:shadow": "pscale connect to-do-app shadow --port 3310",
     "server": "concurrently \"npm run server:prisma\" \"npm run server:main\" \"npm run server:shadow\""
   },
   "dependencies": {

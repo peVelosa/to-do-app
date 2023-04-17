@@ -18,7 +18,7 @@ type CardProps = {
 };
 
 const Card = ({ toDo }: CardProps) => {
-  const { title, tasks } = toDo;
+  const { title, tasks, status } = toDo;
 
   const [isNewTaskActive, setIsNewTaskActive] = useState<boolean>(false);
 
@@ -50,6 +50,7 @@ const Card = ({ toDo }: CardProps) => {
       <CardContent sx={{ py: 0, m: 0, px: 1 }}>
         <Tasks
           tasks={tasks}
+          status={status}
           isNewTaskActive={isNewTaskActive}
           closeNewTask={closeNewTask}
         />
