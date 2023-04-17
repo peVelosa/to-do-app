@@ -15,16 +15,16 @@ This is a site where you can create an account and have control over your tasks.
 
 Project is created with:
 
-- NextJs (front end)
-- Planetscale (database)
-- Prisma (ORM)
+- [NextJs](https://nextjs.org/) (front end)
+- [Planetscale](https://planetscale.com/) (database)
+- [Prisma](https://www.prisma.io/) (ORM)
+- [Typescript](https://www.typescriptlang.org/)
 
 ## Libraries
 
 - [React DnD](https://react-dnd.github.io/react-dnd/about)
 - [React Query](https://tanstack.com/query/latest/docs/react/overview)
 - [MUI](https://mui.com/)
-- [Typescript](https://www.typescriptlang.org/)
 - [Axios](https://axios-http.com/)
 - [Nookies](https://web.mobills.com.br/dashboard?utm_source=home_site&utm_content=iniciar_sessao)
 - [React Hook Form](https://react-hook-form.com/)
