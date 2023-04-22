@@ -34,7 +34,10 @@ const NewTask = ({
         {...field}
         autoFocus
         size="small"
-        onBlur={closeNewTask}
+        onBlur={() => {
+          onSubmit();
+          closeNewTask();
+        }}
         placeholder="Enter new task"
       />
     </FormControl>

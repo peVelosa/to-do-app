@@ -2,7 +2,7 @@ import React from "react";
 import type { FormatedToDoType, StatusType, ToDoType } from "@/types/Todo";
 import { useDrop } from "react-dnd";
 import Card from "@/components/Card/Card";
-import { Box, Stack } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import {
   MutationFunction,
   useMutation,
@@ -99,6 +99,16 @@ const DraggableSection = ({ toDos, status }: DraggableSectionProps) => {
         p: 2,
       }}
     >
+      <Stack justifyContent={"center"} alignItems={"center"}>
+        <Typography
+          sx={{ textTransform: "capitalize" }}
+          component={"h2"}
+          variant="h6"
+        >
+          {status}
+        </Typography>
+      </Stack>
+      <Divider sx={{ mb: 2 }} />
       <Stack alignItems={"center"} gap={2}>
         {toDos.map((toDo) => (
           <Card isDragging={isOver} toDo={toDo} key={toDo.id} />

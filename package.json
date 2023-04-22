@@ -11,7 +11,7 @@
     "server:prisma": "npx prisma studio",
     "server:main": "pscale connect to-do-app main --port 3309",
     "server:shadow": "pscale connect to-do-app shadow --port 3310",
-    "server": "concurrently \"npm run server:prisma\" \"npm run server:main\" \"npm run server:shadow\""
+    "server": "concurrently \"npm run server:main\" \"npm run server:shadow\" \"npm run server:prisma\""
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

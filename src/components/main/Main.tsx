@@ -24,20 +24,28 @@ const Main = () => {
   });
 
   if (!data) {
-    return <CircularProgress />;
+    return (
+      <Stack alignItems="center" sx={{ mt: 8 }}>
+        <CircularProgress />
+      </Stack>
+    );
   }
 
   return (
     <ThemeProvider theme={theme}>
       <Container component={"main"} sx={{ mb: 6, overflow: "auto" }}>
-        <Grid container spacing={2} sx={{ height: "100%", overflow: "auto" }}>
-          <Grid item xs={4}>
+        <Grid
+          container
+          spacing={2}
+          sx={{ height: "100%", overflow: "auto", flexWrap: "nowrap", gap: 2 }}
+        >
+          <Grid item xs={4} sx={{ minWidth: 200 }}>
             <DraggableSection status={"to-do"} toDos={data["to-do"]} />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} sx={{ minWidth: 200 }}>
             <DraggableSection status={"doing"} toDos={data["doing"]} />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} sx={{ minWidth: 200 }}>
             <DraggableSection status={"done"} toDos={data["done"]} />
           </Grid>
         </Grid>

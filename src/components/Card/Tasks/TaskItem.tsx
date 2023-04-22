@@ -5,11 +5,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  IconButton,
 } from "@mui/material";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import type { FormatedToDoType, StatusType, TasksType } from "@/types/Todo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "@/libs/axios";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 type TaskItemProps = {
   task: TasksType;
@@ -67,17 +69,62 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
     },
   });
 
+  const deleteTask = useMutation({
+    mutationKey: ["todos", task.to_do_Id],
+    mutationFn: () => {
+      return axios.delete("/task", {
+        data: {
+          id: task.id,
+        },
+      });
+    },
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+      const previousTodos = queryClient.getQueryData<FormatedToDoType>([
+        "todos",
+      ]);
+
+      if (!previousTodos || task.to_do_Id === "1") return;
+
+      queryClient.setQueryData<unknown>(["todos"], (old: FormatedToDoType) => ({
+        ...old,
+        [status]: old[status].map((toDo) => {
+          if (toDo.id === task.to_do_Id) {
+            return {
+              ...toDo,
+              tasks: toDo.tasks.filter((t) => t.id !== task.id),
+            };
+          }
+          return toDo;
+        }),
+      }));
+
+      return { previousTodos };
+    },
+    onError: (err, variables, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData<FormatedToDoType>(
+          ["todos"],
+          context.previousTodos
+        );
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["todos"],
+      });
+    },
+  });
+
   const handleToggle = () => updateTask.mutate();
+  const handleDelete = () => deleteTask.mutate();
 
   return (
     <ListItem
       secondaryAction={
-        <Checkbox
-          edge="end"
-          onChange={handleToggle}
-          checked={task.done}
-          inputProps={{ "aria-labelledby": task.id }}
-        />
+        <IconButton edge="end" onClick={handleDelete}>
+          <DeleteForeverIcon color="error" />
+        </IconButton>
       }
       disablePadding
     >
@@ -94,6 +141,11 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
           primary={task.title}
           id={task.id}
           sx={{ textDecoration: task.done ? "line-through" : "none" }}
+        />
+        <Checkbox
+          edge="end"
+          checked={task.done}
+          inputProps={{ "aria-labelledby": task.id }}
         />
       </ListItemButton>
     </ListItem>
