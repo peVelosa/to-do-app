@@ -53,11 +53,9 @@ const DraggableSection = ({ toDos, status }: DraggableSectionProps) => {
     onMutate: async (toDo) => {
       const { id, status: prevStatus } = toDo;
       await queryClient.cancelQueries({ queryKey: ["todos"] });
-
       const previousTodos = queryClient.getQueryData<FormatedToDoType>([
         "todos",
       ]);
-
       if (!previousTodos || id === "1") return;
 
       queryClient.setQueryData<unknown>(["todos"], (old: FormatedToDoType) => ({

@@ -8,10 +8,11 @@ import {
   IconButton,
 } from "@mui/material";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
-import type { FormatedToDoType, StatusType, TasksType } from "@/types/Todo";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
 import axios from "@/libs/axios";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { FormatedToDoType, StatusType, TasksType } from "@/types/Todo";
 
 type TaskItemProps = {
   task: TasksType;
@@ -22,7 +23,7 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
   const queryClient = useQueryClient();
 
   const updateTask = useMutation({
-    mutationKey: ["todos", task.to_do_Id],
+    mutationKey: ["todos"],
     mutationFn: () => {
       return axios.put(`/task/${task.id}/${String(!task.done)}`);
     },
@@ -70,7 +71,7 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
   });
 
   const deleteTask = useMutation({
-    mutationKey: ["todos", task.to_do_Id],
+    mutationKey: ["todos"],
     mutationFn: () => {
       return axios.delete("/task", {
         data: {
@@ -135,7 +136,7 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
         onClick={handleToggle}
       >
         <ListItemIcon sx={{ minWidth: 30 }}>
-          <ContentPasteIcon />
+          {task.done ? <TaskOutlinedIcon /> : <ContentPasteIcon />}
         </ListItemIcon>
         <ListItemText
           primary={task.title}

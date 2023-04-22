@@ -30,7 +30,7 @@ const Card = ({ toDo }: CardProps) => {
         opacity: monitor.isDragging() ? 0.5 : 1,
       }),
     }),
-    []
+    [toDo]
   );
 
   const openNewTask = () => setIsNewTaskActive(true);
@@ -39,11 +39,16 @@ const Card = ({ toDo }: CardProps) => {
   return (
     <CardMui ref={dragRef} style={{ opacity }} sx={{ width: "100%" }}>
       <CardContent>
-        <Typography component={"h1"} variant="h6" gutterBottom>
+        <Typography
+          component={"h1"}
+          variant="h6"
+          gutterBottom
+          sx={{ cursor: "pointer", "&:hover": { textDecoration: "underline" } }}
+        >
           {title}
         </Typography>
+        <Divider />
       </CardContent>
-      <Divider variant="middle" />
       <CardActions>
         <AddTask openNewTask={openNewTask} />
       </CardActions>
