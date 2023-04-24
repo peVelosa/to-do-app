@@ -38,7 +38,6 @@ const Tasks = ({
   const addTask = useMutation({
     mutationKey: ["todos"],
     mutationFn: ({ title }: Partial<TasksType>) => {
-      if (toDoId === "1") return null as any;
       return axios.post("/task", {
         title,
         to_do_Id: toDoId,
@@ -50,7 +49,7 @@ const Tasks = ({
         "todos",
       ]);
 
-      if (!previousTodos || toDoId === "1") return;
+      if (!previousTodos) return;
 
       queryClient.setQueryData<unknown>(["todos"], (old: FormatedToDoType) => ({
         ...old,
@@ -87,7 +86,7 @@ const Tasks = ({
 
   const onSubmit = (data: NewTaskType) => {
     const { newTask } = data;
-    if (!newTask) return;
+    if (!newTask || toDoId === "1") return;
     addTask.mutate({ title: newTask });
     reset();
   };
@@ -95,8 +94,12 @@ const Tasks = ({
     <>
       {tasks.length !== 0 ? (
         <List sx={{ maxHeight: 135, overflowY: "auto", mb: 3 }}>
-          {tasks.map((task) => (
-            <TaskItem key={task.id} task={task} status={status} />
+          {tasks.map((task, index) => (
+            <TaskItem
+              key={`${task.id}${task.title}${index}`}
+              task={task}
+              status={status}
+            />
           ))}
         </List>
       ) : null}

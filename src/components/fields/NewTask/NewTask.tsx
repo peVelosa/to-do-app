@@ -20,7 +20,9 @@ const NewTask = ({
   const { field } = useController({ control, name, rules });
 
   useEffect(() => {
-    return () => resetNewTaskValue();
+    return () => {
+      resetNewTaskValue();
+    };
   }, [resetNewTaskValue]);
 
   return (

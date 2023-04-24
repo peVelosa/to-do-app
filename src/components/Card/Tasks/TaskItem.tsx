@@ -117,8 +117,14 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
     },
   });
 
-  const handleToggle = () => updateTask.mutate();
-  const handleDelete = () => deleteTask.mutate();
+  const handleToggle = () => {
+    if (task.to_do_Id === "1" || task.id === "1") return;
+    updateTask.mutate();
+  };
+  const handleDelete = () => {
+    if (task.to_do_Id === "1" || task.id === "1") return;
+    deleteTask.mutate();
+  };
 
   return (
     <ListItem
