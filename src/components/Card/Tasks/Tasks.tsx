@@ -19,6 +19,7 @@ type TasksProps = {
   status: StatusType;
   isNewTaskActive: boolean;
   closeNewTask: () => void;
+  maxHeight?: number;
 };
 
 const Tasks = ({
@@ -27,6 +28,7 @@ const Tasks = ({
   isNewTaskActive,
   status,
   closeNewTask,
+  maxHeight = 135,
 }: TasksProps) => {
   const { control, handleSubmit, reset } = useForm<NewTaskType>({
     defaultValues: {
@@ -93,7 +95,7 @@ const Tasks = ({
   return (
     <>
       {tasks.length !== 0 ? (
-        <List sx={{ maxHeight: 135, overflowY: "auto", mb: 3 }}>
+        <List sx={{ maxHeight, overflowY: "auto", mb: 3 }}>
           {tasks.map((task, index) => (
             <TaskItem
               key={`${task.id}${task.title}${index}`}

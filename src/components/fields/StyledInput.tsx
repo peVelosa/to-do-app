@@ -9,6 +9,9 @@ interface StyledInputProps extends UseControllerProps<any> {
   required?: boolean;
   fullWidth?: boolean;
   endAdornment?: React.ReactNode;
+  rows?: number;
+  multiline?: boolean;
+  placeholder?: string;
 }
 
 const StyledInput = ({
@@ -20,6 +23,9 @@ const StyledInput = ({
   endAdornment,
   required = true,
   fullWidth = true,
+  rows = 1,
+  multiline = false,
+  placeholder = "",
 }: StyledInputProps) => {
   const { field, fieldState } = useController({ control, name, rules });
 
@@ -38,6 +44,9 @@ const StyledInput = ({
         id={name}
         type={type}
         endAdornment={endAdornment}
+        multiline={multiline}
+        rows={rows ?? 1}
+        placeholder={placeholder}
       />
       {!fieldState.error ? null : fieldState.error.type === "required" ? (
         <HelperText message={"This is required"} />

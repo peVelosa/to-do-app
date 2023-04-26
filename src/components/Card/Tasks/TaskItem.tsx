@@ -129,7 +129,7 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
   return (
     <ListItem
       secondaryAction={
-        <IconButton edge="end" onClick={handleDelete}>
+        <IconButton edge="end" onClick={handleDelete} aria-label="delete task">
           <DeleteForeverIcon color="error" />
         </IconButton>
       }
@@ -139,18 +139,22 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
         dense
         disableGutters
         sx={{ pl: 1 }}
+        aria-label="check task"
         onClick={handleToggle}
       >
         <ListItemIcon sx={{ minWidth: 30 }}>
           {task.done ? <TaskOutlinedIcon /> : <ContentPasteIcon />}
         </ListItemIcon>
         <ListItemText
+          aria-label="task title"
           primary={task.title}
           id={task.id}
           sx={{ textDecoration: task.done ? "line-through" : "none" }}
         />
         <Checkbox
           edge="end"
+          aria-label="check task"
+          aria-labelledby={`task is ${task.done ? "done" : "not done"}`}
           checked={task.done}
           inputProps={{ "aria-labelledby": task.id }}
         />

@@ -1,5 +1,4 @@
 import prisma from "@/libs/prisma";
-import { ToDoType } from "@/types/Todo";
 
 type updateTodoProps = {
   id: string;

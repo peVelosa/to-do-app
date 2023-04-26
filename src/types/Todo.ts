@@ -26,3 +26,9 @@ export type FormatedToDoType = {
 export type NewTaskType = {
   newTask: string;
 };
+
+export type ToDoFormType = {
+  title: string;
+  description: string;
+  status: StatusType;
+};
