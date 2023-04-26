@@ -1,4 +1,5 @@
 import React from "react";
+
 import { IconButton, InputAdornment } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 
@@ -10,7 +11,7 @@ type PasswordEndAdornmentProps = {
 const PasswordEndAdornment = ({
   isVisible,
   handleVisible,
-}: PasswordEndAdornmentProps) => {
+}: PasswordEndAdornmentProps): JSX.Element => {
   return (
     <InputAdornment position="end">
       <IconButton

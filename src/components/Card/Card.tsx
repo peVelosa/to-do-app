@@ -1,35 +1,26 @@
 import React, { useState } from "react";
+import { CardType } from "@/libs/CardType";
+import { useDrag } from "react-dnd";
+
 import {
   Card as CardMui,
   CardContent,
   Typography,
   Divider,
   CardActions,
-  Box,
 } from "@mui/material";
-import { useDrag } from "react-dnd";
 import Tasks from "./Tasks/Tasks";
 import AddTask from "./Tasks/AddTask";
-import { CardType } from "@/libs/CardType";
-import type { ToDoType } from "@/types/Todo";
 import Modal from "../Modal/Modal";
+
+import type { ToDoType } from "@/types/Todo";
 
 type CardProps = {
   isDragging: boolean;
   toDo: ToDoType;
 };
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "white",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-const Card = ({ toDo }: CardProps) => {
+
+const Card = ({ toDo }: CardProps): JSX.Element => {
   const { title, tasks, status, id } = toDo;
 
   const [isNewTaskActive, setIsNewTaskActive] = useState<boolean>(false);
@@ -46,10 +37,10 @@ const Card = ({ toDo }: CardProps) => {
     [toDo]
   );
 
-  const openNewTask = () => setIsNewTaskActive(true);
-  const closeNewTask = () => setIsNewTaskActive(false);
-  const setClose = () => setIsModalOpen(false);
-  const handleOpen = () => setIsModalOpen(true);
+  const openNewTask = (): void => setIsNewTaskActive(true);
+  const closeNewTask = (): void => setIsNewTaskActive(false);
+  const setClose = (): void => setIsModalOpen(false);
+  const handleOpen = (): void => setIsModalOpen(true);
 
   return (
     <>

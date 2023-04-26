@@ -29,7 +29,7 @@ const Tasks = ({
   status,
   closeNewTask,
   maxHeight = 135,
-}: TasksProps) => {
+}: TasksProps): JSX.Element => {
   const { control, handleSubmit, reset } = useForm<NewTaskType>({
     defaultValues: {
       newTask: "",
@@ -86,7 +86,7 @@ const Tasks = ({
     },
   });
 
-  const onSubmit = (data: NewTaskType) => {
+  const onSubmit = (data: NewTaskType): void => {
     const { newTask } = data;
     if (!newTask || toDoId === "1") return;
     addTask.mutate({ title: newTask });

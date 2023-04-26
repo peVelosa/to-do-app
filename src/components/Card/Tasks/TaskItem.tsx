@@ -1,4 +1,7 @@
 import React from "react";
+import axios from "@/libs/axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import {
   ListItem,
   Checkbox,
@@ -9,9 +12,8 @@ import {
 } from "@mui/material";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
-import axios from "@/libs/axios";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import type { FormatedToDoType, StatusType, TasksType } from "@/types/Todo";
 
 type TaskItemProps = {
@@ -19,7 +21,7 @@ type TaskItemProps = {
   status: StatusType;
 };
 
-const TaskItem = ({ task, status }: TaskItemProps) => {
+const TaskItem = ({ task, status }: TaskItemProps): JSX.Element => {
   const queryClient = useQueryClient();
 
   const updateTask = useMutation({
@@ -117,11 +119,11 @@ const TaskItem = ({ task, status }: TaskItemProps) => {
     },
   });
 
-  const handleToggle = () => {
+  const handleToggle = (): void => {
     if (task.to_do_Id === "1" || task.id === "1") return;
     updateTask.mutate();
   };
-  const handleDelete = () => {
+  const handleDelete = (): void => {
     if (task.to_do_Id === "1" || task.id === "1") return;
     deleteTask.mutate();
   };

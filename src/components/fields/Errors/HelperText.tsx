@@ -5,7 +5,7 @@ type HelperTextProps = {
   message?: string;
 };
 
-const HelperText = ({ message }: HelperTextProps) => {
+const HelperText = ({ message }: HelperTextProps): JSX.Element => {
   return (
     <FormHelperText
       id="component-error-text"

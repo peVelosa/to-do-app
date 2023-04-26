@@ -1,8 +1,11 @@
 import React from "react";
-import SignUp from "@/components/singup/SingUp";
 import Head from "next/head";
 
-const SignUpPage = () => {
+import SignUp from "@/components/singup/SingUp";
+
+import type { NextPage } from "next";
+
+const SignUpPage: NextPage = (): JSX.Element => {
   return (
     <>
       <Head>

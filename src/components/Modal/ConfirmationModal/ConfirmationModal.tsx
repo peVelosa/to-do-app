@@ -1,4 +1,7 @@
 import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "@/libs/axios";
+
 import {
   Box,
   Button,
@@ -6,9 +9,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { FormatedToDoType, StatusType, ToDoType } from "@/types/Todo";
-import axios from "@/libs/axios";
+
+import type { FormatedToDoType, StatusType, ToDoType } from "@/types/Todo";
 
 type ConfirmationModal = {
   id: string;
@@ -22,7 +24,7 @@ const ConfirmationModal = ({
   status,
   open,
   onClose,
-}: ConfirmationModal) => {
+}: ConfirmationModal): JSX.Element => {
   const queryClient = useQueryClient();
 
   const deleteTodo = useMutation({
@@ -61,11 +63,11 @@ const ConfirmationModal = ({
     },
   });
 
-  const handleDelete = () => deleteTodo.mutate({ id, status });
+  const handleDelete = (): void => deleteTodo.mutate({ id, status });
 
   return (
     <MuiModal open={open} onClose={onClose}>
-      <Box sx={{ ...style, width: 400, textAlign: "center" }}>
+      <Box sx={style}>
         <Typography component={"h1"} variant="h6">
           Are you sure you want delete it?
         </Typography>
@@ -94,10 +96,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: 800,
+  maxWidth: 400,
   width: "100%",
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
   p: 4,
+  textAlign: "center",
 };

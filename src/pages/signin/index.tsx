@@ -1,7 +1,10 @@
-import SignIn from "@/components/signin/SignIn";
 import Head from "next/head";
 
-export default function SignInPage() {
+import SignIn from "@/components/signin/SignIn";
+
+import type { NextPage } from "next";
+
+const SignInPage: NextPage = (): JSX.Element => {
   return (
     <>
       <Head>
@@ -12,4 +15,5 @@ export default function SignInPage() {
       <SignIn />
     </>
   );
-}
+};
+export default SignInPage;

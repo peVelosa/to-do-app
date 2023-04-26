@@ -1,16 +1,13 @@
 import React from "react";
-import type { FormatedToDoType, StatusType, ToDoType } from "@/types/Todo";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useDrop } from "react-dnd";
+import axios from "@/libs/axios";
+
 import Card from "@/components/Card/Card";
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import {
-  MutationFunction,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-import axios from "@/libs/axios";
-import { Axios } from "axios";
 import { CardType } from "@/libs/CardType";
+
+import type { FormatedToDoType, StatusType, ToDoType } from "@/types/Todo";
 
 type DraggableSectionProps = {
   toDos: ToDoType[] | [];
@@ -24,7 +21,10 @@ type dropProps = {
   prevStatus: StatusType;
 };
 
-const DraggableSection = ({ toDos, status }: DraggableSectionProps) => {
+const DraggableSection = ({
+  toDos,
+  status,
+}: DraggableSectionProps): JSX.Element => {
   const queryClient = useQueryClient();
 
   const [{ isOver }, drop] = useDrop(() => ({

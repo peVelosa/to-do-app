@@ -1,4 +1,8 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "@/utils/hooks/useAuth";
+import { fetchTodo } from "@/services/fetchTodo";
+
 import {
   CircularProgress,
   Container,
@@ -7,15 +11,13 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import useAuth from "@/utils/hooks/useAuth";
-import { fetchTodo } from "@/services/fetchTodo";
 import DraggableSection from "./DragSection/DraggableSection";
+
 import type { FormatedToDoType } from "@/types/Todo";
 
 const theme = createTheme();
 
-const Main = () => {
+const Main = (): JSX.Element => {
   const { user } = useAuth();
   const { data } = useQuery<FormatedToDoType | undefined>({
     queryKey: ["todos"],

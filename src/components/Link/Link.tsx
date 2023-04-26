@@ -7,7 +7,7 @@ type CustomLinkProps = {
   message: string;
 };
 
-const CustomLink = ({ href, message }: CustomLinkProps) => {
+const CustomLink = ({ href, message }: CustomLinkProps): JSX.Element => {
   return (
     <MuiLink href={href} component={NextLink}>
       {message}

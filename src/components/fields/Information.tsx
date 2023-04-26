@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import React from "react";
 
-const Information = () => {
+const Information = (): JSX.Element => {
   return (
     <Typography
       variant="h6"

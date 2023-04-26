@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { FormControl, TextField } from "@mui/material";
 import { UseControllerProps, useController } from "react-hook-form";
+
+import { FormControl, TextField } from "@mui/material";
+
 import type { NewTaskType } from "@/types/Todo";
 
 interface NewTaskProps extends UseControllerProps<NewTaskType> {
@@ -16,7 +18,7 @@ const NewTask = ({
   closeNewTask,
   onSubmit,
   resetNewTaskValue,
-}: NewTaskProps) => {
+}: NewTaskProps): JSX.Element => {
   const { field } = useController({ control, name, rules });
 
   useEffect(() => {

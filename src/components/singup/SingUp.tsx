@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import axios from "@/libs/axios";
 
 import {
   Container,
@@ -12,14 +15,12 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { ThemeProvider } from "@mui/material/styles";
-import { useForm } from "react-hook-form";
 import Information from "@/fields/Information";
 import CustomLink from "../Link/Link";
-import PasswordCheckList from "../fields/Password/PasswordCheckList";
-import { useRouter } from "next/router";
-import axios from "@/libs/axios";
-import StyledInput from "../fields/StyledInput";
-import PasswordEndAdornment from "../fields/Password/PasswordEndAdornment";
+import PasswordCheckList from "@/fields/Password/PasswordCheckList";
+import StyledInput from "@/fields/StyledInput";
+import PasswordEndAdornment from "@/fields/Password/PasswordEndAdornment";
+
 import { emailRegex, onlyLetters, passwordRegex } from "@/utils/Regex/regex";
 import type { SignUpFormType } from "@/types/Sign";
 
@@ -41,7 +42,7 @@ const SignUp = (): JSX.Element => {
       passwordConfirmation: "",
     },
   });
-  const onSubmit = async (data: SignUpFormType) => {
+  const onSubmit = async (data: SignUpFormType): Promise<void> => {
     const { password, passwordConfirmation, email, firstName, lastName } = data;
     if (!onlyLetters.test(firstName)) {
       setError("firstName", {
@@ -91,8 +92,8 @@ const SignUp = (): JSX.Element => {
     router.push("/signin");
   };
 
-  const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
-  const handlePasswordConfirmation = () =>
+  const handlePassword = (): void => setIsPasswordVisible(!isPasswordVisible);
+  const handlePasswordConfirmation = (): void =>
     setIsPasswordConfirmationVisible(!isPasswordConfirmationVisible);
 
   return (

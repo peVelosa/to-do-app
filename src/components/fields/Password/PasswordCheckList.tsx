@@ -1,12 +1,15 @@
+import React from "react";
+
 import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import React from "react";
 
 type PasswordCheckListProps = {
   password: string;
 };
 
-const PasswordCheckList = ({ password = "" }: PasswordCheckListProps) => {
+const PasswordCheckList = ({
+  password = "",
+}: PasswordCheckListProps): JSX.Element => {
   const upperCase = /^(?=.*?[A-Z])/.test(password);
   const lowerCase = /(?=.*?[a-z])/.test(password);
   const digit = /(?=.*?[0-9])/.test(password);

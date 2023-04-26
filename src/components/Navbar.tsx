@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,7 +12,7 @@ type NavbarProps = {
   username: string | null;
 };
 
-export default function Navbar({ username = null }: NavbarProps) {
+const Navbar = ({ username = null }: NavbarProps): JSX.Element => {
   const { user, signOut } = useAuth();
 
   return (
@@ -30,4 +31,6 @@ export default function Navbar({ username = null }: NavbarProps) {
       </AppBar>
     </Box>
   );
-}
+};
+
+export default Navbar;

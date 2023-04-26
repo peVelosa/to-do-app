@@ -1,3 +1,6 @@
+import React from "react";
+import { UseControllerProps, useController } from "react-hook-form";
+
 import {
   FormControl,
   IconButton,
@@ -5,10 +8,9 @@ import {
   InputAdornment,
   InputLabel,
 } from "@mui/material";
-import React from "react";
-import { UseControllerProps, useController } from "react-hook-form";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import HelperText from "../Errors/HelperText";
+
 import type { NewItemType } from "@/types/NewItem";
 
 interface NewItemInputProps extends UseControllerProps<NewItemType> {
@@ -20,7 +22,7 @@ const NewItemInput = ({
   name,
   rules,
   onSubmit,
-}: NewItemInputProps) => {
+}: NewItemInputProps): JSX.Element => {
   const { field, fieldState } = useController({ control, name, rules });
 
   return (

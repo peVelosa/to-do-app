@@ -12,7 +12,7 @@ export default async function updateTodo({
   title,
   description,
   status,
-}: updateTodoProps) {
+}: updateTodoProps): Promise<void> {
   await prisma.to_do.update({
     where: {
       id: id,

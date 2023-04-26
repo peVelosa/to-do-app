@@ -1,4 +1,5 @@
 import axios from "@/libs/axios";
+
 import { v4 as uuid } from "uuid";
 
 type signInRequestProps = {
@@ -13,7 +14,6 @@ export default async function signInRequest({
   const res = await axios
     .get(`/auth/${email}/${password}`)
     .then((res) => res.data);
-
   return {
     token: uuid(),
     user: res,

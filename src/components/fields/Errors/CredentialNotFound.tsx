@@ -1,13 +1,17 @@
-import { SignInFormType } from "@/types/Sign";
-import { Typography } from "@mui/material";
 import React from "react";
 import { FieldErrors } from "react-hook-form";
+
+import { Typography } from "@mui/material";
+
+import type { SignInFormType } from "@/types/Sign";
 
 type CredentialNotFoundProps = {
   errors: FieldErrors<SignInFormType>;
 };
 
-const CredentialNotFound = ({ errors }: CredentialNotFoundProps) => {
+const CredentialNotFound = ({
+  errors,
+}: CredentialNotFoundProps): JSX.Element => {
   return (
     <>
       {(errors.email?.type === "not found" ||

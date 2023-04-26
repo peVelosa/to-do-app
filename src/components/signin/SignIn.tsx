@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-
+import { useForm } from "react-hook-form";
 import { ThemeProvider } from "@emotion/react";
+import useAuth from "@/utils/hooks/useAuth";
+
 import {
   Container,
   CssBaseline,
@@ -12,13 +14,12 @@ import {
   createTheme,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useForm } from "react-hook-form";
 import Information from "@/fields/Information";
 import CustomLink from "../Link/Link";
-import useAuth from "@/utils/hooks/useAuth";
-import CredentialNotFound from "../fields/Errors/CredentialNotFound";
-import StyledInput from "../fields/StyledInput";
-import PasswordEndAdornment from "../fields/Password/PasswordEndAdornment";
+import CredentialNotFound from "@/fields/Errors/CredentialNotFound";
+import StyledInput from "@/fields/StyledInput";
+import PasswordEndAdornment from "@/fields/Password/PasswordEndAdornment";
+
 import type { SignInFormType } from "@/types/Sign";
 
 const theme = createTheme();
@@ -39,13 +40,13 @@ const SignIn = (): JSX.Element => {
   });
   const { signIn } = useAuth();
 
-  const onSubmit = async (data: SignInFormType) => {
+  const onSubmit = async (data: SignInFormType): Promise<void> => {
     const { email, password } = data;
     if (!email || !password) return;
     signIn({ email, password, setError });
   };
 
-  const handlePassword = () => setIsPasswordVisible(!isPasswordVisible);
+  const handlePassword = (): void => setIsPasswordVisible(!isPasswordVisible);
 
   return (
     <ThemeProvider theme={theme}>

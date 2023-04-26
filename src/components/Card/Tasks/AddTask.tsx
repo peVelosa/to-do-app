@@ -6,7 +6,7 @@ type AddTaskProps = {
   openNewTask: () => void;
 };
 
-const AddTask = ({ openNewTask }: AddTaskProps) => {
+const AddTask = ({ openNewTask }: AddTaskProps): JSX.Element => {
   return (
     <>
       <Button onClick={openNewTask} startIcon={<AddIcon color="success" />}>

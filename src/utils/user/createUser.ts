@@ -13,11 +13,10 @@ export default async function createUser({
   firstName,
   lastName,
   password,
-}: createUserType) {
+}: createUserType): Promise<void> {
   const numSaltRounds = 8;
   const hashedPassword = await bcrypt.hash(password, numSaltRounds);
-
-  return await prisma.user.create({
+  await prisma.user.create({
     data: {
       email: email.toLocaleLowerCase(),
       username: `${firstName} ${lastName}`,

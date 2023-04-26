@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { parseCookies } from "nookies";
 import getUser from "@/utils/user/getUser";
+
 import Navbar from "@/components/Navbar";
-import { User } from "@/types/Auth";
 import Main from "@/components/Main/Main";
 import NewToDo from "@/components/NewToDo";
+
 import type { GetServerSideProps, NextPage } from "next";
+import type { User } from "@/types/Auth";
 
 type HomeProps = {
   user: User;

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
+
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "@/libs/axios";
+
 import { Box, Divider, Modal as MuiModal, Typography } from "@mui/material";
-import {
-  FormatedToDoType,
-  StatusType,
-  ToDoFormType,
-  ToDoType,
-} from "@/types/Todo";
 import Tasks from "../Card/Tasks/Tasks";
 import AddTask from "../Card/Tasks/AddTask";
 import StyledInput from "../fields/StyledInput";
 import { useForm } from "react-hook-form";
 import TitleInput from "../fields/Title/TitleInput";
 import Status from "../fields/Status/Status";
-import CloseButton from "./CloseButton";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "@/libs/axios";
+import DeleteButton from "./DeleteButton";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+
+import type {
+  FormatedToDoType,
+  StatusType,
+  ToDoFormType,
+  ToDoType,
+} from "@/types/Todo";
 
 type ModalProps = {
   toDo: ToDoType;
@@ -31,7 +34,7 @@ type updateTodoType = {
   status: StatusType;
 };
 
-const Modal = ({ toDo, open, setClose }: ModalProps) => {
+const Modal = ({ toDo, open, setClose }: ModalProps): JSX.Element => {
   const queryClient = useQueryClient();
 
   const [isNewTaskActive, setIsNewTaskActive] = useState<boolean>(false);
@@ -150,7 +153,7 @@ const Modal = ({ toDo, open, setClose }: ModalProps) => {
       />
       <MuiModal open={open} onClose={() => handleSubmit(onSubmit)()}>
         <Box sx={style}>
-          <CloseButton openConfirmationModal={openConfirmationModal} />
+          <DeleteButton openConfirmationModal={openConfirmationModal} />
           <TitleInput
             control={control}
             name="title"

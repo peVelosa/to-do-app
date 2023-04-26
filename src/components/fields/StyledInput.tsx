@@ -26,7 +26,7 @@ const StyledInput = ({
   rows = 1,
   multiline = false,
   placeholder = "",
-}: StyledInputProps) => {
+}: StyledInputProps): JSX.Element => {
   const { field, fieldState } = useController({ control, name, rules });
 
   return (

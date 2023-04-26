@@ -1,19 +1,24 @@
 import React from "react";
+import { UseControllerProps, useController } from "react-hook-form";
+
 import {
   Box,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   Stack,
   Typography,
 } from "@mui/material";
-import { UseControllerProps, useController } from "react-hook-form";
 import HelperText from "../Errors/HelperText";
 import CircleIcon from "@mui/icons-material/Circle";
-import { ToDoFormType } from "@/types/Todo";
 
-const Status = ({ control, name, rules }: UseControllerProps<ToDoFormType>) => {
+import type { ToDoFormType } from "@/types/Todo";
+
+const Status = ({
+  control,
+  name,
+  rules,
+}: UseControllerProps<ToDoFormType>): JSX.Element => {
   const { field, fieldState } = useController({ control, name, rules });
 
   const color =

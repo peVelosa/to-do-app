@@ -1,15 +1,17 @@
 import React, { HTMLInputTypeAttribute } from "react";
-import { FormControl, TextField } from "@mui/material";
 import { UseControllerProps, useController } from "react-hook-form";
+
+import { FormControl, TextField } from "@mui/material";
 import HelperText from "../Errors/HelperText";
-import { ToDoFormType } from "@/types/Todo";
+
+import type { ToDoFormType } from "@/types/Todo";
 
 interface TitleInputProps extends UseControllerProps<ToDoFormType> {
   type: HTMLInputTypeAttribute;
   label: string;
 }
 
-const TitleInput = ({ control, name, rules }: TitleInputProps) => {
+const TitleInput = ({ control, name, rules }: TitleInputProps): JSX.Element => {
   const { field, fieldState } = useController({ control, name, rules });
 
   return (

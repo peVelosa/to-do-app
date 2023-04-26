@@ -17,7 +17,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const router = useRouter();
 
-  const recoveryUserInfo = async ({ id }: { id: string }) => {
+  const recoveryUserInfo = async ({ id }: { id: string }): Promise<void> => {
     const data = axios.get<User>(`/user/${id}`).then((res) => res.data);
     setUser(await data);
   };
@@ -31,10 +31,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const isAuthenticated = !!user;
 
-  const signIn = async ({ email, password, setError }: signInProps) => {
+  const signIn = async ({
+    email,
+    password,
+    setError,
+  }: signInProps): Promise<void> => {
     const { user, token } = await signInRequest({ email, password });
     const ONE_HOUR = 60 * 60 * 1000;
-    if (user.err) {
+    if (user.err || !token) {
       setError("email", { type: "not found" });
       setError("password", { type: "not found" });
       return;
@@ -45,7 +49,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     axios.defaults.headers["Authorization"] = token;
     router.push("/");
   };
-  const signOut = () => {
+  const signOut = (): void => {
     setUser(null);
     destroyCookie(null, "nextauth.token");
     destroyCookie(null, "nextauth.id");

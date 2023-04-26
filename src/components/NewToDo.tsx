@@ -1,14 +1,16 @@
 import React from "react";
-import { Box } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "@/libs/axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import useAuth from "@/utils/hooks/useAuth";
+
+import { Box } from "@mui/material";
 import NewItemInput from "./fields/NewItem/NewItemInput";
+
 import type { NewItemType } from "@/types/NewItem";
 import type { FormatedToDoType } from "@/types/Todo";
 
-const NewToDo = () => {
+const NewToDo = (): JSX.Element => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -66,7 +68,7 @@ const NewToDo = () => {
     },
   });
 
-  const onSubmit = (data: NewItemType) =>
+  const onSubmit = (data: NewItemType): void =>
     create.mutate({ newItem: data.newItem });
 
   return (
