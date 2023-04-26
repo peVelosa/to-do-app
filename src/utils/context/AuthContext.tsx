@@ -33,13 +33,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signIn = async ({ email, password, setError }: signInProps) => {
     const { user, token } = await signInRequest({ email, password });
+    const ONE_HOUR = 60 * 60 * 1000;
     if (user.err) {
       setError("email", { type: "not found" });
       setError("password", { type: "not found" });
       return;
     }
-    setCookie(undefined, "nextauth.token", token);
-    setCookie(undefined, "nextauth.id", user.id);
+    setCookie(undefined, "nextauth.token", token, { maxAge: ONE_HOUR });
+    setCookie(undefined, "nextauth.id", user.id, { maxAge: ONE_HOUR });
     setUser(user);
     axios.defaults.headers["Authorization"] = token;
     router.push("/");

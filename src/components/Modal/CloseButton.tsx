@@ -1,16 +1,20 @@
 import React from "react";
 import { Box, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type CloseButtonProps = {
-  handleClose: () => void;
+  openConfirmationModal: () => void;
 };
 
-const CloseButton = ({ handleClose }: CloseButtonProps) => {
+const CloseButton = ({ openConfirmationModal }: CloseButtonProps) => {
   return (
     <Box sx={{ position: "absolute", right: 20, top: 8 }}>
-      <IconButton aria-label="close modal" color="error" onClick={handleClose}>
-        <CloseIcon />
+      <IconButton
+        aria-label="close modal"
+        color="error"
+        onClick={openConfirmationModal}
+      >
+        <DeleteIcon />
       </IconButton>
     </Box>
   );

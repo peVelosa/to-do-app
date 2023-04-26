@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { formatPrisma } from "@/services/formatPrisma";
 import createTodo from "@/utils/todos/createTodo";
+import deleteTodo from "@/utils/todos/deleteTodo";
 import getTodos from "@/utils/todos/getTodos";
 import updateTodo from "@/utils/todos/updateTodo";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -36,6 +37,16 @@ export default async function handler(
       res.status(404).json({ err: "Something went wrong" });
     try {
       await updateTodo({ id, title, description, status });
+      res.status(201).end();
+    } catch {
+      res.status(404).json("Something went wrong");
+    }
+  }
+  if (req.method === "DELETE") {
+    const { id } = req.body;
+    if (!id) res.status(404).json({ err: "Something went wrong" });
+    try {
+      await deleteTodo({ id });
       res.status(201).end();
     } catch {
       res.status(404).json("Something went wrong");

@@ -15,6 +15,7 @@ import Status from "../fields/Status/Status";
 import CloseButton from "./CloseButton";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "@/libs/axios";
+import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
 
 type ModalProps = {
   toDo: ToDoType;
@@ -34,8 +35,10 @@ const Modal = ({ toDo, open, setClose }: ModalProps) => {
   const queryClient = useQueryClient();
 
   const [isNewTaskActive, setIsNewTaskActive] = useState<boolean>(false);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
+    useState<boolean>(false);
 
-  const { control, setValue, handleSubmit, reset, watch, getValues } =
+  const { control, setValue, handleSubmit, reset, getValues } =
     useForm<ToDoFormType>({
       defaultValues: {
         title: "",
@@ -43,6 +46,16 @@ const Modal = ({ toDo, open, setClose }: ModalProps) => {
         status: "" as StatusType,
       },
     });
+
+  useEffect(() => {
+    setValue("title", toDo.title);
+    setValue("description", toDo.description);
+    setValue("status", toDo.status);
+
+    () => {
+      reset();
+    };
+  }, [toDo, open, setValue, reset]);
 
   const updateTodo = useMutation({
     mutationKey: ["todos"],
@@ -102,17 +115,7 @@ const Modal = ({ toDo, open, setClose }: ModalProps) => {
     },
   });
 
-  useEffect(() => {
-    setValue("title", toDo.title);
-    setValue("description", toDo.description);
-    setValue("status", toDo.status);
-
-    () => {
-      reset();
-    };
-  }, [toDo, open, setValue, reset]);
-
-  const onSubmit = (data: ToDoFormType) => {
+  const onSubmit = (data: ToDoFormType): void => {
     const { title, status, description } = data;
     if (
       title === toDo.title &&
@@ -120,7 +123,7 @@ const Modal = ({ toDo, open, setClose }: ModalProps) => {
       description === toDo.description
     )
       return setClose();
-    const newTitle = watch("title");
+    const newTitle = getValues("title");
     const newDescription = getValues("description");
     const newStatus = getValues("status");
     updateTodo.mutate({
@@ -134,49 +137,59 @@ const Modal = ({ toDo, open, setClose }: ModalProps) => {
   };
   const openNewTask = (): void => setIsNewTaskActive(true);
   const closeNewTask = (): void => setIsNewTaskActive(false);
+  const openConfirmationModal = (): void => setIsConfirmationModalOpen(true);
+  const onClose = (): void => setIsConfirmationModalOpen(false);
 
   return (
-    <MuiModal open={open} onClose={() => handleSubmit(onSubmit)()}>
-      <Box sx={style}>
-        <CloseButton handleClose={setClose} />
-        <TitleInput
-          control={control}
-          name="title"
-          rules={{ required: true }}
-          label=""
-          type="text"
-        />
-        <Status control={control} name="status" rules={{}} />
-        <Divider sx={{ my: 2 }} />
-        <Box>
-          <Typography id="modal-toDo-title" variant="h6" component="h2">
-            Description
-          </Typography>
-          <StyledInput
+    <>
+      <ConfirmationModal
+        id={toDo.id}
+        status={toDo.status}
+        open={isConfirmationModalOpen}
+        onClose={onClose}
+      />
+      <MuiModal open={open} onClose={() => handleSubmit(onSubmit)()}>
+        <Box sx={style}>
+          <CloseButton openConfirmationModal={openConfirmationModal} />
+          <TitleInput
             control={control}
+            name="title"
+            rules={{ required: true }}
             label=""
-            name="description"
-            rules={{}}
-            multiline={true}
-            rows={4}
-            fullWidth
             type="text"
-            required={false}
-            placeholder={"Type something..."}
+          />
+          <Status control={control} name="status" rules={{}} />
+          <Divider sx={{ my: 2 }} />
+          <Box>
+            <Typography id="modal-toDo-title" variant="h6" component="h2">
+              Description
+            </Typography>
+            <StyledInput
+              control={control}
+              label=""
+              name="description"
+              rules={{}}
+              multiline={true}
+              rows={4}
+              fullWidth
+              type="text"
+              required={false}
+              placeholder={"Type something..."}
+            />
+          </Box>
+          <Divider sx={{ my: 2 }} />
+          <AddTask openNewTask={openNewTask} />
+          <Tasks
+            tasks={toDo.tasks}
+            status={toDo.status}
+            toDoId={toDo.id}
+            isNewTaskActive={isNewTaskActive}
+            closeNewTask={closeNewTask}
+            maxHeight={250}
           />
         </Box>
-        <Divider sx={{ my: 2 }} />
-        <AddTask openNewTask={openNewTask} />
-        <Tasks
-          tasks={toDo.tasks}
-          status={toDo.status}
-          toDoId={toDo.id}
-          isNewTaskActive={isNewTaskActive}
-          closeNewTask={closeNewTask}
-          maxHeight={250}
-        />
-      </Box>
-    </MuiModal>
+      </MuiModal>
+    </>
   );
 };
 
