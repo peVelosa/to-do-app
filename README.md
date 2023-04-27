@@ -52,4 +52,6 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000/api
 
 ## Deploy
 
-Not ready
+# Do not use your personal email or password
+
+https://to-do-app-pevelosa.vercel.app/
