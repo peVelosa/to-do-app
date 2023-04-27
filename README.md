@@ -1,5 +1,11 @@
 # Project To-Do App
 
+## Deploy
+
+### Do not use your personal email or password
+
+https://to-do-app-pevelosa.vercel.app/
+
 ## Introduction
 
 This is a site where you can create an account and have control over your tasks. You can
@@ -50,8 +56,3 @@ SHADOW_DATABASE_URL=mysql://root@127.0.0.1:3310/to-do-app
 NEXT_PUBLIC_BASE_URL=http://localhost:3000/api
 ```
 
-## Deploy
-
-# Do not use your personal email or password
-
-https://to-do-app-pevelosa.vercel.app/
