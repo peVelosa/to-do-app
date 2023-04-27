@@ -4,6 +4,7 @@ import Head from "next/head";
 import SignUp from "@/components/singup/SingUp";
 
 import type { NextPage } from "next";
+import { Box, Container } from "@mui/material";
 
 const SignUpPage: NextPage = (): JSX.Element => {
   return (
@@ -13,7 +14,11 @@ const SignUpPage: NextPage = (): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SignUp />
+      <Box sx={{ overflow: "auto" }}>
+        <Container component="main" maxWidth="xs" sx={{ py: 8 }}>
+          <SignUp />
+        </Container>
+      </Box>
     </>
   );
 };

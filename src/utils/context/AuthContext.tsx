@@ -37,7 +37,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setError,
   }: signInProps): Promise<void> => {
     const { user, token } = await signInRequest({ email, password });
-    const ONE_HOUR = 60 * 60 * 1000;
+    const ONE_HOUR = 60 * 60;
     if (user.err || !token) {
       setError("email", { type: "not found" });
       setError("password", { type: "not found" });

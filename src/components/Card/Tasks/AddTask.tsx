@@ -9,7 +9,11 @@ type AddTaskProps = {
 const AddTask = ({ openNewTask }: AddTaskProps): JSX.Element => {
   return (
     <>
-      <Button onClick={openNewTask} startIcon={<AddIcon color="success" />}>
+      <Button
+        onClick={openNewTask}
+        sx={{ color: "primary.button" }}
+        startIcon={<AddIcon color="success" />}
+      >
         Add Task
       </Button>
     </>

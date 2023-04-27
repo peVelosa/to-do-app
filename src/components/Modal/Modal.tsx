@@ -208,6 +208,7 @@ const style = {
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
+  color: "card.main",
   pt: 6,
   pb: 2,
   px: 4,

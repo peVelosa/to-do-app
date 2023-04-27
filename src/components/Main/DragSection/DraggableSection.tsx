@@ -8,6 +8,7 @@ import { Box, Divider, Stack, Typography } from "@mui/material";
 import { CardType } from "@/libs/CardType";
 
 import type { FormatedToDoType, StatusType, ToDoType } from "@/types/Todo";
+import useColorMode from "@/utils/hooks/useColorMode";
 
 type DraggableSectionProps = {
   toDos: ToDoType[] | [];
@@ -26,6 +27,7 @@ const DraggableSection = ({
   status,
 }: DraggableSectionProps): JSX.Element => {
   const queryClient = useQueryClient();
+  const { mode } = useColorMode();
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: CardType,
@@ -90,7 +92,7 @@ const DraggableSection = ({
       sx={{
         overflow: "auto",
         minWidth: 200,
-        backgroundColor: "ButtonHighlight",
+        backgroundColor: "background.section",
         flexGrow: 1,
         opacity: isOver ? 0.5 : 1,
         height: "100%",
@@ -99,7 +101,10 @@ const DraggableSection = ({
     >
       <Stack justifyContent={"center"} alignItems={"center"}>
         <Typography
-          sx={{ textTransform: "capitalize" }}
+          sx={{
+            textTransform: "capitalize",
+            color: "black",
+          }}
           component={"h2"}
           variant="h6"
         >

@@ -18,10 +18,11 @@ import {
 //basic setup react query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ColorModeProvider from "@/utils/context/ColorModeContext";
 
 const queryClient = new QueryClient();
 
-export const HTML5toTouch = {
+const HTML5toTouch = {
   backends: [
     {
       id: "html5",
@@ -43,7 +44,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <DndProvider options={HTML5toTouch}>
-          <Component {...pageProps} />
+          <ColorModeProvider>
+            <Component {...pageProps} />
+          </ColorModeProvider>
         </DndProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

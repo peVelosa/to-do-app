@@ -45,7 +45,11 @@ const Card = ({ toDo }: CardProps): JSX.Element => {
   return (
     <>
       <Modal toDo={toDo} setClose={setClose} open={isModalOpen} />
-      <CardMui ref={dragRef} style={{ opacity }} sx={{ width: "100%" }}>
+      <CardMui
+        ref={dragRef}
+        style={{ opacity }}
+        sx={{ width: "100%", color: "card.main" }}
+      >
         <CardContent>
           <Typography
             component={"h1"}

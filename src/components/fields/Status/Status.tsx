@@ -13,6 +13,7 @@ import HelperText from "../Errors/HelperText";
 import CircleIcon from "@mui/icons-material/Circle";
 
 import type { ToDoFormType } from "@/types/Todo";
+import useColorMode from "@/utils/hooks/useColorMode";
 
 const Status = ({
   control,
@@ -20,6 +21,7 @@ const Status = ({
   rules,
 }: UseControllerProps<ToDoFormType>): JSX.Element => {
   const { field, fieldState } = useController({ control, name, rules });
+  const { mode } = useColorMode();
 
   const color =
     field.value === "to-do"
@@ -38,13 +40,28 @@ const Status = ({
           <Select
             labelId="status-changer"
             {...field}
-            // onChange={handleChange}
             label="Status"
             variant="standard"
+            sx={{ color: mode === "dark" ? "white" : "black" }}
           >
-            <MenuItem value={"to-do"}>To do</MenuItem>
-            <MenuItem value={"doing"}>Doing</MenuItem>
-            <MenuItem value={"done"}>Done</MenuItem>
+            <MenuItem
+              value={"to-do"}
+              sx={{ color: mode === "dark" ? "white" : "black" }}
+            >
+              To do
+            </MenuItem>
+            <MenuItem
+              value={"doing"}
+              sx={{ color: mode === "dark" ? "white" : "black" }}
+            >
+              Doing
+            </MenuItem>
+            <MenuItem
+              value={"done"}
+              sx={{ color: mode === "dark" ? "white" : "black" }}
+            >
+              Done
+            </MenuItem>
           </Select>
         </Box>
         <CircleIcon color={color} sx={{ mb: 0.5 }} />

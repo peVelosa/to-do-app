@@ -18,7 +18,14 @@ const PasswordCheckList = ({
 
   return (
     <>
-      <Box sx={{ my: 1, bgcolor: "ButtonFace", borderRadius: 2 }}>
+      <Box
+        sx={{
+          my: 1,
+          bgcolor: "background.section",
+          borderRadius: 2,
+          color: "black",
+        }}
+      >
         <List dense>
           <ListItem>
             <ListItemIcon>

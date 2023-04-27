@@ -2,6 +2,8 @@ import React, { HTMLInputTypeAttribute } from "react";
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import { UseControllerProps, useController } from "react-hook-form";
 import HelperText from "./Errors/HelperText";
+import useColorMode from "@/utils/hooks/useColorMode";
+import { formColorMode } from "@/utils/FormColorMode";
 
 interface StyledInputProps extends UseControllerProps<any> {
   type: HTMLInputTypeAttribute;
@@ -28,10 +30,13 @@ const StyledInput = ({
   placeholder = "",
 }: StyledInputProps): JSX.Element => {
   const { field, fieldState } = useController({ control, name, rules });
-
+  const { mode } = useColorMode();
   return (
     <FormControl
-      sx={{ my: 1 }}
+      sx={{
+        my: 1,
+        ...formColorMode(mode),
+      }}
       variant="outlined"
       fullWidth={fullWidth}
       required={required}
@@ -40,6 +45,7 @@ const StyledInput = ({
       <InputLabel htmlFor={name}>{label}</InputLabel>
       <OutlinedInput
         {...field}
+        sx={{ color: mode === "dark" ? "white" : "black" }}
         label={label}
         id={name}
         type={type}

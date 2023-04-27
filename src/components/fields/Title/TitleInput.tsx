@@ -5,6 +5,7 @@ import { FormControl, TextField } from "@mui/material";
 import HelperText from "../Errors/HelperText";
 
 import type { ToDoFormType } from "@/types/Todo";
+import useColorMode from "@/utils/hooks/useColorMode";
 
 interface TitleInputProps extends UseControllerProps<ToDoFormType> {
   type: HTMLInputTypeAttribute;
@@ -13,7 +14,7 @@ interface TitleInputProps extends UseControllerProps<ToDoFormType> {
 
 const TitleInput = ({ control, name, rules }: TitleInputProps): JSX.Element => {
   const { field, fieldState } = useController({ control, name, rules });
-
+  const { mode } = useColorMode();
   return (
     <FormControl
       sx={{ my: 1 }}
@@ -22,8 +23,8 @@ const TitleInput = ({ control, name, rules }: TitleInputProps): JSX.Element => {
       error={!!fieldState.error}
     >
       <TextField
-        id="outlined-multiline-static"
         {...field}
+        inputProps={{ style: { color: mode === "dark" ? "white" : "black" } }}
         fullWidth
         variant="standard"
       />

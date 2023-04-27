@@ -1,12 +1,14 @@
 import React from "react";
+import useAuth from "@/utils/hooks/useAuth";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import useAuth from "@/utils/hooks/useAuth";
-import { Container } from "@mui/material";
+import { Container, IconButton, Stack } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import ThemeToggle from "./ThemeToggle/ThemeToggle";
 
 type NavbarProps = {
   username: string | null;
@@ -17,15 +19,26 @@ const Navbar = ({ username = null }: NavbarProps): JSX.Element => {
 
   return (
     <Box sx={{ flexGrow: 1, mb: 8 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: "primary.main" }}>
         <Container maxWidth="xl">
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
               {username || user?.username}
             </Typography>
-            <Button color="inherit" onClick={signOut}>
-              Log Out
-            </Button>
+            <Stack
+              direction={"row"}
+              justifyContent={"space-between"}
+              sx={{ flexGrow: { xs: 1, sm: 0 } }}
+            >
+              <Button color="inherit" onClick={signOut}>
+                Log Out
+              </Button>
+              <ThemeToggle />
+            </Stack>
           </Toolbar>
         </Container>
       </AppBar>
