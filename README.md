@@ -17,6 +17,11 @@ This is a site where you can create an account and have control over your tasks.
 - Check your tasks
 - Delete your tasks
 
+### New
+
+  - Toggle color mode
+  - Page transition (doing)
+
 ## Tecnologies
 
 Project is created with:
