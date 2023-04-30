@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import getUser from "@/utils/user/getUser";
+import getUser from "@/services/api/user/getUser";
 import { NextResponse } from "next/server";
 
 export async function GET(

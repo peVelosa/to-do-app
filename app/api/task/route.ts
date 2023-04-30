@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import createTask from "@/utils/task/createTask";
-import updateTask from "@/utils/task/updateTask";
+import createTask from "@/services/api/task/createTask";
+import updateTask from "@/services/api/task/updateTask";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {

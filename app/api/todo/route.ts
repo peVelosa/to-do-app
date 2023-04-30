@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { formatPrisma } from "@/services/formatPrisma";
-import createTodo from "@/utils/todos/createTodo";
-import getTodos from "@/utils/todos/getTodos";
+import createTodo from "@/services/api/todos/createTodo";
+import getTodos from "@/services/api/todos/getTodos";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {

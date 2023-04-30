@@ -1,4 +1,4 @@
-import deleteTask from "@/utils/task/deleteTask";
+import deleteTask from "@/services/api/task/deleteTask";
 import { NextResponse } from "next/server";
 export async function DELETE(
   request: Request,

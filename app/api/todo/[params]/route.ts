@@ -1,5 +1,5 @@
-import deleteTodo from "@/utils/todos/deleteTodo";
-import updateTodo from "@/utils/todos/updateTodo";
+import deleteTodo from "@/services/api/todos/deleteTodo";
+import updateTodo from "@/services/api/todos/updateTodo";
 import { NextResponse } from "next/server";
 
 export async function PUT(

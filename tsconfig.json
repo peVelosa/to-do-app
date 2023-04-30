@@ -16,14 +16,13 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/src/*"],
-      "@/styles/*": ["./app/src/styles/*"],
-      "@/components/*": ["./app/src/components/*"],
-      "@/utils/*": ["./app/src/utils/*"],
-      "@/types/*": ["./app/src/types/*"],
-      "@/fields/*": ["./app/src/components/fields/*"],
-      "@/services/*": ["./app/src/services/*"],
-      "@/libs/*": ["./app/src/libs/*"]
+      "@/*": ["./app/*"],
+      "@/components/*": ["./app/components/*"],
+      "@/utils/*": ["./app/utils/*"],
+      "@/types/*": ["./app/types/*"],
+      "@/fields/*": ["./app/components/fields/*"],
+      "@/services/*": ["./app/services/*"],
+      "@/libs/*": ["./app/libs/*"]
     },
     "plugins": [
       {

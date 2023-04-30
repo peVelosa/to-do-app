@@ -1,7 +1,7 @@
 import SignIn from "@/components/signin/SignIn";
 
 import { cookies } from "next/headers";
-import Router from "next/navigation";
+import { redirect } from "next/navigation";
 import type { NextPage } from "next";
 
 export const metadata = {
@@ -13,7 +13,7 @@ const SignInPage: NextPage = (): JSX.Element => {
   const authToken = nextCookies.get("nextauth.token");
   const idToken = nextCookies.get("nextauth.id");
   if (authToken && idToken) {
-    Router.redirect("/");
+    redirect("/");
   }
 
   return (

@@ -1,11 +1,13 @@
-import Provider from "@/Provider";
 import "./global.css";
+import Provider from "./Provider";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <body>
-        <Provider>{children}</Provider>
+        <div id="next">
+          <Provider>{children}</Provider>
+        </div>
       </body>
     </html>
   );

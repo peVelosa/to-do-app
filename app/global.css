@@ -12,7 +12,7 @@ body {
   overflow: hidden;
 }
 
-#__next {
+#next {
   min-height: 100vh;
   min-height: 100svh;
   max-height: 100vh;
