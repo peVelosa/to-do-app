@@ -1,19 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import getAuth from "@/services/api/auth/getAuth";
 import createUser from "@/services/api/user/createUser";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === "POST") {
-    const { email, firstName, lastName, password } = req.body.req;
-    try {
-      await createUser({ email, firstName, lastName, password });
-      res.status(201).end();
-    } catch {
-      res.status(202).json({ err: "Email already exists" });
-    }
+export default async function POST(request: Request) {
+  const { email, firstName, lastName, password } = await request.json();
+  if (!email || !firstName || !lastName || !password)
+    return NextResponse.json(
+      { message: "All credentials must be provided" },
+      { status: 201 }
+    );
+  try {
+    await createUser({ email, firstName, lastName, password });
+    return NextResponse.json({}, { status: 201 });
+  } catch {
+    return NextResponse.json({ err: "Email already exists" }, { status: 202 });
   }
 }
