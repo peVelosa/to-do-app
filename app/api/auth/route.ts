@@ -7,11 +7,7 @@ export async function GET(request: Request) {
   const password = searchParams.get("password");
 
   if (!email || !password) return NextResponse.json({ err: "Error" });
-  try {
-    const { isAuth, data } = await getAuth({ email, password });
-    if (!isAuth) return NextResponse.json({ err: "User not found" });
-    return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ err: "Path not found" });
-  }
+  const { isAuth, data } = await getAuth({ email, password });
+  if (!isAuth) return NextResponse.json({ err: "User not found" });
+  return NextResponse.json(data);
 }

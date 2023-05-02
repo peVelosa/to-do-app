@@ -68,10 +68,8 @@ const SignUp = (): JSX.Element => {
       });
       return;
     }
-    const res = await axios.post("/user", {
-      req: data,
-    });
-    if (res.data.err) {
+    const res = await axios.post("/user", data);
+    if (res.data.status === 202) {
       setError("email", {
         type: "custom",
         message: "Email already exists",
